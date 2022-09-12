@@ -31,6 +31,7 @@ jobs:
           python-version: "3.8"
       - name: prep exec notebooks
         run: |
+          cp dev_requirements.txt $GITHUB_WORKSPACE/external/.
           cd $GITHUB_WORKSPACE/external
           sudo apt install wget unzip -y
           conda install python=3.8 cartopy
@@ -39,7 +40,7 @@ jobs:
           mkdir ./example_scripts/notebooks/markdown
           pwd
           ls ./example_scripts/notebooks
-          pip install -r conda_dev_requirements.txt
+          pip install -r dev_requirements.txt
           pip install .
           mv config ./example_scripts/notebooks/runnable_notebooks/config
           bash notebook_to_md.sh
