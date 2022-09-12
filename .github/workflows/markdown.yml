@@ -9,6 +9,9 @@ on:
 jobs:
   commit-notebooks:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       - name: Checkout site
         uses: actions/checkout@v3
@@ -27,13 +30,15 @@ jobs:
       - name: Prepare environement
         uses: conda-incubator/setup-miniconda@v2
         with:
-          auto-activate-base: true
+          activate-environment: coast-site
+          environment-file: site/environment.yml
       - name: prep exec notebooks
         run: |
+          conda info
+          conda list
+          conda config --show
           cd $GITHUB_WORKSPACE/external
           sudo apt install wget unzip -y
-          conda env update --prune $GITHUB_WORKSPACE/site/environment.yml
-          conda activate coast_site
           wget -q https://linkedsystems.uk/erddap/files/COAsT_example_files/COAsT_example_files.zip
           unzip COAsT_example_files.zip && mv COAsT_example_files ./example_scripts/notebooks/runnable_notebooks/example_files
           mkdir ./example_scripts/notebooks/markdown
