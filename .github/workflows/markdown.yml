@@ -9,7 +9,7 @@ on:
 jobs:
   commit-notebooks:
     if: ${{ github.event.client_payload.deploy_notebook }}
-    runs-on: ubuntu-latest
+    runs-on: conda/miniconda3-centos7
     steps:
       - name: Checkout site
         uses: actions/checkout@v3
