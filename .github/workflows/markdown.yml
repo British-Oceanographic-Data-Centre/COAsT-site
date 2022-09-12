@@ -8,7 +8,7 @@ on:
 
 jobs:
   commit-notebooks:
-    runs-on: conda/miniconda3-centos7
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout site
         uses: actions/checkout@v3
@@ -25,10 +25,14 @@ jobs:
           path: external
 
       - name: Prepare environement
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: "3.8"
         run: |
           cd $GITHUB_WORKSPACE/external
-          yum install wget unzip -y
-          conda install python=3.8 cartopy
+          apt install wget unzip -y
+          conda install cartopy
           wget https://linkedsystems.uk/erddap/files/COAsT_example_files/COAsT_example_files.zip
           unzip COAsT_example_files.zip && mv COAsT_example_files ./example_scripts/notebooks/runnable_notebooks/example_files
           python -m pip install .
