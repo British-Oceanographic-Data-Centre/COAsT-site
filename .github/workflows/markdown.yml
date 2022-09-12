@@ -26,6 +26,8 @@ jobs:
 
       - name: Prepare environement
         uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-activate-base: true
       - name: prep exec notebooks
         run: |
           cd $GITHUB_WORKSPACE/external
