@@ -42,7 +42,7 @@ jobs:
           mkdir ./example_scripts/notebooks/markdown
           pwd
           ls ./example_scripts/notebooks
-          pip install jupyterlab==3.4.6
+          pip install jupyter==1.0.0
           pip install -r dev_requirements.txt
           pip install .
           mv config ./example_scripts/notebooks/runnable_notebooks/config
