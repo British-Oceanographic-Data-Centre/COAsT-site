@@ -31,7 +31,6 @@ jobs:
       - name: prep exec notebooks
         run: |
           cd $GITHUB_WORKSPACE/external
-          conda activate
           sudo apt install wget unzip -y
           conda env update --prune $GITHUB_WORKSPACE/site/environment.yml
           conda activate coast_site
