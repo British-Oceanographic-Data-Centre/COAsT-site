@@ -41,6 +41,7 @@ jobs:
           sudo apt install wget unzip -y
           wget -q https://linkedsystems.uk/erddap/files/COAsT_example_files/COAsT_example_files.zip
           unzip COAsT_example_files.zip && mv COAsT_example_files ./example_scripts/notebooks/runnable_notebooks/example_files
+          ls /home/runner/work/COAsT-site/COAsT-site/external/example_scripts/notebooks/runnable_notebooks/example_files
           mkdir ./example_scripts/notebooks/markdown
           ls ./example_scripts/notebooks
           pip install .
