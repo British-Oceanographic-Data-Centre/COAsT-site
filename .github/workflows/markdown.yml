@@ -35,6 +35,7 @@ jobs:
           ls
           cp site/dev_requirements.txt $GITHUB_WORKSPACE/external/
           cd $GITHUB_WORKSPACE/external
+          conda activate
           sudo apt install wget unzip -y
           conda install python=3.8 cartopy
           wget -q https://linkedsystems.uk/erddap/files/COAsT_example_files/COAsT_example_files.zip
