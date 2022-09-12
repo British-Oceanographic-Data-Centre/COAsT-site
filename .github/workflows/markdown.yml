@@ -32,6 +32,7 @@ jobs:
       - name: prep exec notebooks
         run: |
           pwd
+          ls
           cp dev_requirements.txt $GITHUB_WORKSPACE/external/
           cd $GITHUB_WORKSPACE/external
           sudo apt install wget unzip -y
