@@ -8,7 +8,7 @@ on:
 
 jobs:
   commit-notebooks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout site
         uses: actions/checkout@v3
@@ -27,7 +27,6 @@ jobs:
       - name: Prepare environement
         uses: conda-incubator/setup-miniconda@v2
         with:
-          auto-activate-base: true
           python-version: "3.8"
       - name: prep exec notebooks
         run: |
@@ -44,7 +43,6 @@ jobs:
           pwd
           ls ./example_scripts/notebooks
           pip install jupyter==1.0.0
-          pip install -r dev_requirements.txt
           pip install .
           mv config ./example_scripts/notebooks/runnable_notebooks/config
           bash notebook_to_md.sh
