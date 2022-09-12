@@ -32,7 +32,7 @@ jobs:
       - name: Exec notebooks
         run: |
           cd $GITHUB_WORKSPACE/external
-          apt install wget unzip -y
+          sudo apt install wget unzip -y
           conda install cartopy
           wget https://linkedsystems.uk/erddap/files/COAsT_example_files/COAsT_example_files.zip
           unzip COAsT_example_files.zip && mv COAsT_example_files ./example_scripts/notebooks/runnable_notebooks/example_files
