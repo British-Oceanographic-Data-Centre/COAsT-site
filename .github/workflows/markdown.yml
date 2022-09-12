@@ -40,7 +40,7 @@ jobs:
           mkdir ./example_scripts/notebooks/markdown
           pwd
           ls ./example_scripts/notebooks
-          pip install markupsafe==2.0.1 jinja2>=3.0 tornado==6.0.3 pygments==2.4.1
+          pip install -r conda_dev_requirements.txt
           pip install .
           mv config ./example_scripts/notebooks/runnable_notebooks/config
           bash notebook_to_md.sh
