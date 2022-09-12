@@ -36,6 +36,7 @@ jobs:
           conda install cartopy
           wget https://linkedsystems.uk/erddap/files/COAsT_example_files/COAsT_example_files.zip
           unzip COAsT_example_files.zip && mv COAsT_example_files ./example_scripts/notebooks/runnable_notebooks/example_files
+          mkdir ./example_scripts/notebooks/markdown
           python -m pip install markupsafe==2.0.1 jinja2>=3.0
           python -m pip install .
           mv config ./example_scripts/notebooks/runnable_notebooks/config
