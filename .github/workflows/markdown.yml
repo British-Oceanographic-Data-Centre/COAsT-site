@@ -33,7 +33,7 @@ jobs:
         run: |
           pwd
           ls
-          cp dev_requirements.txt $GITHUB_WORKSPACE/external/
+          cp site/dev_requirements.txt $GITHUB_WORKSPACE/external/
           cd $GITHUB_WORKSPACE/external
           sudo apt install wget unzip -y
           conda install python=3.8 cartopy
