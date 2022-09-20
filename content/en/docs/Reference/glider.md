@@ -1,7 +1,7 @@
 ---
 title: "Glider"
 linkTitle: "Glider"
-date: 2022-06-29
+date: 2022-09-20
 description: >
   Docstrings for the Glider class
 ---
