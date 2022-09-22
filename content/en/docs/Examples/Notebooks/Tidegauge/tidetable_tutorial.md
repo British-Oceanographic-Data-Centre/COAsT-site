@@ -53,7 +53,7 @@ Initiate a TideGauge object, if a filename is passed it assumes it is a GESLA ty
 tg = coast.Tidegauge()
 ```
 
-    Tidegauge object at 0x556e98546fc0 initialised
+    Tidegauge object at 0x55938654cfc0 initialised
 
 
 Specify the data read as a High Low Water dataset.
@@ -84,7 +84,7 @@ tg.dataset.plot.scatter(x="time", y="ssh")
 
 
 
-    <matplotlib.collections.PathCollection at 0x7fbd8a9b1a90>
+    <matplotlib.collections.PathCollection at 0x7f1ea61f4820>
 
 
 
@@ -129,7 +129,7 @@ Extract the Low Tide value.
 
 ```python
 print("Try the TideGauge.get_tidetabletimes() methods:")
-print("LT:", HLW[HLW.argmin()].values, "m at", HLW[HLW.argmin()].time.values)
+print("LT:", HLW[np.argmin(HLW.data)].values, "m at", HLW[np.argmin(HLW.data)].time.values)
 ```
 
     Try the TideGauge.get_tidetabletimes() methods:
@@ -140,7 +140,7 @@ Extract the High Tide value.
 
 
 ```python
-print("HT:", HLW[HLW.argmax()].values, "m at", HLW[HLW.argmax()].time.values)
+print("HT:", HLW[np.argmax(HLW.data)].values, "m at", HLW[np.argmax(HLW.data)].time.values)
 ```
 
     HT: 8.01 m at 2020-10-13T07:59:00.000000000
