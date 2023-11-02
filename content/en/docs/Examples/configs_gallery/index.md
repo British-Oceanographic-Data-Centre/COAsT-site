@@ -4,8 +4,7 @@ linkTitle: "Gallery"
 date: 2020-09-15
 weight: 20
 description: >
-  Example scripts and gallery for other NEMO configurations. Scripts from
-  [example_scripts](https://github.com/British-Oceanographic-Data-Centre/COAsT/tree/master/example_scripts)
+  Example scripts and gallery for other NEMO configurations.
 ---
 
 # AMM15 - 1.5km resolution Atlantic Margin Model
