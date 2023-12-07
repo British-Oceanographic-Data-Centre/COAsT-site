@@ -330,7 +330,7 @@ differences.dataset.diff_temperature.plot()
 
 
 
-    <matplotlib.collections.QuadMesh at 0x7f095c547310>
+    <matplotlib.collections.QuadMesh at 0x7f55f059ec50>
 
 
 
@@ -358,7 +358,7 @@ plt.colorbar( label='temperature diff (obs-model)')
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f0948ff3f40>
+    <matplotlib.colorbar.Colorbar at 0x7f55f03581c0>
 
 
 
@@ -558,7 +558,7 @@ plt.legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7f0948ce7ac0>
+    <matplotlib.legend.Legend at 0x7f55f03eadd0>
 
 
 
@@ -598,7 +598,7 @@ plt.colorbar()
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f09488e6650>
+    <matplotlib.colorbar.Colorbar at 0x7f55e0dfaad0>
 
 
 
@@ -639,7 +639,7 @@ plt.colorbar()
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f09487f1990>
+    <matplotlib.colorbar.Colorbar at 0x7f55e0d09ea0>
 
 
 
