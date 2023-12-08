@@ -25,6 +25,25 @@ fn_altimetry = dn_files + "coast_example_altimetry_data.nc"
 fn_altimetry_config = root + "./config/example_altimetry.json"
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+
+
 ### Load data
 
 
@@ -40,8 +59,14 @@ nemo = coast.Gridded(fn_nemo_dat, fn_nemo_dom, config=fn_nemo_config)
 altimetry = coast.Altimetry(fn_altimetry, config=fn_altimetry_config)
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:278: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
+
+
     ././config/example_altimetry.json
-    Altimetry object at 0x561214f5efc0 initialised
+    Altimetry object at 0x560d5d3e2980 initialised
+
+
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:278: UserWarning: The specified chunks separate the stored chunks along dimension "time" starting at index 1000. This could degrade performance. Instead, consider rechunking after loading.
 
 
 ### Subsetting
@@ -57,7 +82,7 @@ ind = ind[::4]
 altimetry = altimetry.isel(t_dim=ind)
 ```
 
-    Subsetting Altimetry object at 0x561214f5efc0 indices in [-10, 10], [45, 60]
+    Subsetting Altimetry object at 0x560d5d3e2980 indices in [-10, 10], [45, 60]
 
 
 ### Model interpolation
@@ -74,7 +99,7 @@ altimetry.obs_operator(nemo, mod_var_name="ssh", time_interp="nearest")
 # to see for yourself.
 ```
 
-    Interpolating Gridded object at 0x561214f5efc0 "ssh" with time_interp "nearest"
+    Interpolating Gridded object at 0x560d5d3e2980 "ssh" with time_interp "nearest"
 
 
 
@@ -93,13 +118,7 @@ altimetry.obs_operator(nemo, mod_var_name="ssh", time_interp="nearest")
 stats = altimetry.basic_stats("ocean_tide_standard_name", "interp_ssh")
 ```
 
-    Altimetry object at 0x561214f5efc0 initialised
-
-
-    /usr/share/miniconda/envs/coast/lib/python3.8/site-packages/coast/data/altimetry.py:351: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
-      corr = pdvar.corr(method=method)
-    /usr/share/miniconda/envs/coast/lib/python3.8/site-packages/coast/data/altimetry.py:365: FutureWarning: The default value of numeric_only in DataFrame.cov is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
-      cov = pdvar.cov()
+    Altimetry object at 0x560d5d3e2980 initialised
 
 
 
@@ -127,7 +146,7 @@ crps = altimetry.crps(nemo, model_var_name="ssh", obs_var_name="ocean_tide_stand
 #crps.dataset  # uncomment to print data object summary
 ```
 
-    Altimetry object at 0x561214f5efc0 initialised
+    Altimetry object at 0x560d5d3e2980 initialised
 
 
 ### Plotting data
@@ -140,8 +159,7 @@ crps = altimetry.crps(nemo, model_var_name="ssh", obs_var_name="ocean_tide_stand
 fig, ax = altimetry.quick_plot("ocean_tide_standard_name")
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.8/site-packages/cartopy/io/__init__.py:241: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/50m_physical/ne_50m_coastline.zip
-      warnings.warn(f'Downloading: {url}', DownloadWarning)
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/cartopy/io/__init__.py:241: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/50m_physical/ne_50m_coastline.zip
 
 
 

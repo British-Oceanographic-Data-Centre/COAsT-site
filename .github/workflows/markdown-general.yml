@@ -13,14 +13,14 @@ jobs:
         shell: bash -l {0}
     steps:
       - name: Checkout site
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive # Fetch Hugo themes and all extra projects
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
           path: site
 
       - name: Checkout coast
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: British-Oceanographic-Data-Centre/COAsT
           ref: develop
@@ -31,7 +31,6 @@ jobs:
         with:
           activate-environment: coast
           environment-file: external/environment.yml
-          python-version: 3.8.10
       - name: prep exec notebooks
         run: |
           conda info
@@ -45,6 +44,9 @@ jobs:
           mkdir -p ./example_scripts/notebook_tutorials/markdown/general
           ls ./example_scripts/notebook_tutorials
           pip install .
+          sudo apt-get update
+          sudo apt-get install -y libgeos-dev
+          pip install cartopy==0.21.0
           mv config ./example_scripts/notebook_tutorials/runnable_notebooks/general/config
           bash notebook_to_md.sh general
       - name: convert notebooks 
@@ -58,6 +60,8 @@ jobs:
           mv ./markdown/general/climatology_tutorial.md $GITHUB_WORKSPACE/site/content/en/docs/Examples/Notebooks/General/
           mv ./markdown/general/dask_wrapper_template_tutorial.md $GITHUB_WORKSPACE/site/content/en/docs/Examples/Notebooks/General/
           mv ./markdown/general/mask_maker_tutorial.md $GITHUB_WORKSPACE/site/content/en/docs/Examples/Notebooks/General/
+          mv ./markdown/general/polar_plotting.md $GITHUB_WORKSPACE/site/content/en/docs/Examples/Notebooks/General/
+          mv ./markdown/general/zarr_files.md $GITHUB_WORKSPACE/site/content/en/docs/Examples/Notebooks/General/
           echo "Move images"
           rsync -r ./markdown_images/general/ $GITHUB_WORKSPACE/site/static
           
@@ -69,8 +73,9 @@ jobs:
           git config --global user.email "bodcsoft@bodc.ac.uk"
           git config --global author.email "bodcsoft@bodc.ac.uk"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git fetch origin
           git checkout develop
-          git pull        
+          git pull
           git add content/en/docs/Examples/Notebooks/General/*
           git add static/*
           git commit -am "Updated General notebook pages from coast repo."

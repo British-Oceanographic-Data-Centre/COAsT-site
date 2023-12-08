@@ -77,6 +77,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
+    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+
+
 We can create a new Profile object easily:
 
 
@@ -139,13 +158,12 @@ Have a look inside the `profile.py` class to see what it can do
 profile.plot_map()
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.8/site-packages/cartopy/io/__init__.py:241: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/50m_physical/ne_50m_coastline.zip
-      warnings.warn(f'Downloading: {url}', DownloadWarning)
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/cartopy/io/__init__.py:241: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/50m_physical/ne_50m_coastline.zip
 
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_12_1.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_12_1.png)
     
 
 
@@ -179,6 +197,9 @@ fn_nemo_config = path.join(root, "./config/example_nemo_grid_t.json")
 nemo = coast.Gridded(fn_nemo_dat, fn_nemo_dom, multiple=True, config=fn_nemo_config)
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:278: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
+
+
 #### Create a landmask array in Gridded
 In this example we add a `landmask` variable to the `Gridded` dataset.
 When this is present, the `obs_operator` will use this to interpolation to the
@@ -199,6 +220,10 @@ nemo.dataset = nemo.dataset.rename({"depth_0": "depth"})  # profile methods will
 # Use obs operator for horizontal remapping of Gridded onto Profile.
 model_profiles = profile.obs_operator(nemo)
 ```
+
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
+
 
 Now that we have interpolated the model onto Profiles, we have a new Profile
 object called `model_profiles`. This can be used to do some comparisons with
@@ -305,13 +330,13 @@ differences.dataset.diff_temperature.plot()
 
 
 
-    <matplotlib.collections.QuadMesh at 0x7fd608509100>
+    <matplotlib.collections.QuadMesh at 0x7f55f059ec50>
 
 
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_33_1.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_33_1.png)
     
 
 
@@ -333,13 +358,13 @@ plt.colorbar( label='temperature diff (obs-model)')
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7fd6084637c0>
+    <matplotlib.colorbar.Colorbar at 0x7f55f03581c0>
 
 
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_34_1.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_34_1.png)
     
 
 
@@ -372,7 +397,7 @@ surface_errors.plot_map(var_str="diff_temperature")
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_38_0.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_38_0.png)
     
 
 
@@ -418,7 +443,7 @@ bottom_errors.plot_map(var_str="diff_temperature")
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_44_0.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_44_0.png)
     
 
 
@@ -455,7 +480,7 @@ plt.title("Temperature diff (obs-model)")
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_46_1.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_46_1.png)
     
 
 
@@ -533,13 +558,13 @@ plt.legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7fd6080e2a30>
+    <matplotlib.legend.Legend at 0x7f55f03eadd0>
 
 
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_56_1.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_56_1.png)
     
 
 
@@ -573,13 +598,13 @@ plt.colorbar()
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7fd600ecd8e0>
+    <matplotlib.colorbar.Colorbar at 0x7f55e0dfaad0>
 
 
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_59_1.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_59_1.png)
     
 
 
@@ -614,12 +639,12 @@ plt.colorbar()
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7fd600dc0160>
+    <matplotlib.colorbar.Colorbar at 0x7f55e0d09ea0>
 
 
 
 
     
-![png](/COAsT/0._profile_introduction_files/0._profile_introduction_63_1.png)
+![png](/COAsT/introduction_to_profile_class_files/introduction_to_profile_class_63_1.png)
     
 
