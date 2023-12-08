@@ -27,9 +27,8 @@ jobs:
 
       - name: Build        
         run: | 
-         npm install -g postcss-cli --verbose
-         npm install autoprefixer --verbose
-         npm audit fix --force --verbose
+         npm install --verbose
+         npm run prepare --verbose
          hugo --minify --verbose
 
       - name: Deploy
