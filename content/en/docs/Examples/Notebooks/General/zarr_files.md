@@ -21,7 +21,7 @@ It will include:
 
 Coast also has the capability to allow you to open zarr files In order to do that, you need to install first the library zarr:
 
-`pip install zarr`
+`pip install zarr xarray[complete] aiohttp requests`
 
 After that, you can open the datasets
 
@@ -36,6 +36,7 @@ import matplotlib.pyplot as plt
 import datetime
 import numpy as np
 import xarray as xr
+import zarr
 
 root = "./"
 fn_config_t_grid = root + "./config/example_nemo_monthly_climate.json"
@@ -69,6 +70,22 @@ fn_nemo_dat_v = "https://noc-msm-o.s3-ext.jc.rl.ac.uk/n06-coast-testing/n06_V.za
     Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
 
 
+
+    ---------------------------------------------------------------------------
+
+    ModuleNotFoundError                       Traceback (most recent call last)
+
+    Cell In[1], line 6
+          4 import numpy as np
+          5 import xarray as xr
+    ----> 6 import zarr
+          8 root = "./"
+          9 fn_config_t_grid = root + "./config/example_nemo_monthly_climate.json"
+
+
+    ModuleNotFoundError: No module named 'zarr'
+
+
 ### Open the zarr files as a XARRAY
 
 The zarr files that we are using in this example do not have all the variables on the same file. Because of that, we need to open each file separately and then add the variables to a central file
@@ -83,7 +100,7 @@ mesh_hgr = xr.open_zarr(fn_nemo_dom_mesh_hgr)
 
     ---------------------------------------------------------------------------
 
-    ValueError                                Traceback (most recent call last)
+    NameError                                 Traceback (most recent call last)
 
     Cell In[2], line 1
     ----> 1 dom = xr.open_zarr(fn_nemo_dom_mask)
@@ -91,61 +108,7 @@ mesh_hgr = xr.open_zarr(fn_nemo_dom_mesh_hgr)
           3 mesh_hgr = xr.open_zarr(fn_nemo_dom_mesh_hgr)
 
 
-    File /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/backends/zarr.py:944, in open_zarr(store, group, synchronizer, chunks, decode_cf, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, consolidated, overwrite_encoded_chunks, chunk_store, storage_options, decode_timedelta, use_cftime, zarr_version, chunked_array_type, from_array_kwargs, **kwargs)
-        930     raise TypeError(
-        931         "open_zarr() got unexpected keyword arguments " + ",".join(kwargs.keys())
-        932     )
-        934 backend_kwargs = {
-        935     "synchronizer": synchronizer,
-        936     "consolidated": consolidated,
-       (...)
-        941     "zarr_version": zarr_version,
-        942 }
-    --> 944 ds = open_dataset(
-        945     filename_or_obj=store,
-        946     group=group,
-        947     decode_cf=decode_cf,
-        948     mask_and_scale=mask_and_scale,
-        949     decode_times=decode_times,
-        950     concat_characters=concat_characters,
-        951     decode_coords=decode_coords,
-        952     engine="zarr",
-        953     chunks=chunks,
-        954     drop_variables=drop_variables,
-        955     chunked_array_type=chunked_array_type,
-        956     from_array_kwargs=from_array_kwargs,
-        957     backend_kwargs=backend_kwargs,
-        958     decode_timedelta=decode_timedelta,
-        959     use_cftime=use_cftime,
-        960     zarr_version=zarr_version,
-        961 )
-        962 return ds
-
-
-    File /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/backends/api.py:558, in open_dataset(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, inline_array, chunked_array_type, from_array_kwargs, backend_kwargs, **kwargs)
-        555 if from_array_kwargs is None:
-        556     from_array_kwargs = {}
-    --> 558 backend = plugins.get_backend(engine)
-        560 decoders = _resolve_decoders_kwargs(
-        561     decode_cf,
-        562     open_backend_dataset_parameters=backend.open_dataset_parameters,
-       (...)
-        568     decode_coords=decode_coords,
-        569 )
-        571 overwrite_encoded_chunks = kwargs.pop("overwrite_encoded_chunks", None)
-
-
-    File /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/backends/plugins.py:205, in get_backend(engine)
-        203     engines = list_engines()
-        204     if engine not in engines:
-    --> 205         raise ValueError(
-        206             f"unrecognized engine {engine} must be one of: {list(engines)}"
-        207         )
-        208     backend = engines[engine]
-        209 elif isinstance(engine, type) and issubclass(engine, BackendEntrypoint):
-
-
-    ValueError: unrecognized engine zarr must be one of: ['netcdf4', 'scipy', 'pydap', 'store']
+    NameError: name 'fn_nemo_dom_mask' is not defined
 
 
 
@@ -183,7 +146,7 @@ t_grid = t_grid.rename({'deptht': 'depth'})
 
     ---------------------------------------------------------------------------
 
-    ValueError                                Traceback (most recent call last)
+    NameError                                 Traceback (most recent call last)
 
     Cell In[4], line 1
     ----> 1 u_grid = xr.open_zarr(fn_nemo_dat_u)
@@ -191,61 +154,7 @@ t_grid = t_grid.rename({'deptht': 'depth'})
           3 v_grid = xr.open_zarr(fn_nemo_dat_v)
 
 
-    File /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/backends/zarr.py:944, in open_zarr(store, group, synchronizer, chunks, decode_cf, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, consolidated, overwrite_encoded_chunks, chunk_store, storage_options, decode_timedelta, use_cftime, zarr_version, chunked_array_type, from_array_kwargs, **kwargs)
-        930     raise TypeError(
-        931         "open_zarr() got unexpected keyword arguments " + ",".join(kwargs.keys())
-        932     )
-        934 backend_kwargs = {
-        935     "synchronizer": synchronizer,
-        936     "consolidated": consolidated,
-       (...)
-        941     "zarr_version": zarr_version,
-        942 }
-    --> 944 ds = open_dataset(
-        945     filename_or_obj=store,
-        946     group=group,
-        947     decode_cf=decode_cf,
-        948     mask_and_scale=mask_and_scale,
-        949     decode_times=decode_times,
-        950     concat_characters=concat_characters,
-        951     decode_coords=decode_coords,
-        952     engine="zarr",
-        953     chunks=chunks,
-        954     drop_variables=drop_variables,
-        955     chunked_array_type=chunked_array_type,
-        956     from_array_kwargs=from_array_kwargs,
-        957     backend_kwargs=backend_kwargs,
-        958     decode_timedelta=decode_timedelta,
-        959     use_cftime=use_cftime,
-        960     zarr_version=zarr_version,
-        961 )
-        962 return ds
-
-
-    File /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/backends/api.py:558, in open_dataset(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, inline_array, chunked_array_type, from_array_kwargs, backend_kwargs, **kwargs)
-        555 if from_array_kwargs is None:
-        556     from_array_kwargs = {}
-    --> 558 backend = plugins.get_backend(engine)
-        560 decoders = _resolve_decoders_kwargs(
-        561     decode_cf,
-        562     open_backend_dataset_parameters=backend.open_dataset_parameters,
-       (...)
-        568     decode_coords=decode_coords,
-        569 )
-        571 overwrite_encoded_chunks = kwargs.pop("overwrite_encoded_chunks", None)
-
-
-    File /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/backends/plugins.py:205, in get_backend(engine)
-        203     engines = list_engines()
-        204     if engine not in engines:
-    --> 205         raise ValueError(
-        206             f"unrecognized engine {engine} must be one of: {list(engines)}"
-        207         )
-        208     backend = engines[engine]
-        209 elif isinstance(engine, type) and issubclass(engine, BackendEntrypoint):
-
-
-    ValueError: unrecognized engine zarr must be one of: ['netcdf4', 'scipy', 'pydap', 'store']
+    NameError: name 'fn_nemo_dat_u' is not defined
 
 
 

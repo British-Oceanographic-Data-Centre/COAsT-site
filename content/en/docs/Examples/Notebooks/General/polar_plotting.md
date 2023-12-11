@@ -119,7 +119,7 @@ u_new, v_new = coast._utils.plot_util.velocity_grid_to_geo(
     polar_stereo_cartopy_bug_fix=False)
 ```
 
-    100%|██████████| 59/59 [07:01<00:00,  7.15s/it]
+    100%|██████████| 59/59 [06:59<00:00,  7.11s/it]
 
 
 
