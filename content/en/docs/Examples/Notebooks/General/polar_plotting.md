@@ -152,63 +152,64 @@ The plot shows three cases: 1:no correction, 2:the NEMO grid correction, and 3:t
 
 
 ```python
-# # Subplot axes settings
-# n_r = 2  # Number of subplot rows
-# n_c = 2  # Number of subplot columns
-# figsize = (10, 10)  # Figure size
-# subplot_padding = 0.5  # Amount of vertical and horizontal padding between plots
-# fig_pad = (0.075, 0.075, 0.1, 0.1)  # Figure padding (left, top, right, bottom)
+# Subplot axes settings
+n_r = 2  # Number of subplot rows
+n_c = 2  # Number of subplot columns
+figsize = (10, 10)  # Figure size
+subplot_padding = 0.5  # Amount of vertical and horizontal padding between plots
+fig_pad = (0.075, 0.075, 0.1, 0.1)  # Figure padding (left, top, right, bottom)
 
-# # Labels and Titles
-# fig_title = "Velocity Plot"  # Whole figure title
+# Labels and Titles
+fig_title = "Velocity Plot"  # Whole figure title
 
-# # Create plot and flatten axis array
-# fig, ax = plt.subplots(n_r, n_c, subplot_kw={"projection": mrc}, sharey=True, sharex=True, figsize=figsize)
-# cax = fig.add_axes([0.3, 0.96, 0.4, 0.01])
-
-
-# ax = ax.flatten()
-# for rr in range(n_r * n_c):
-#     ax[rr].add_feature(cfeature.LAND, zorder=100)
-#     ax[rr].gridlines()
-#     ax[rr].set_extent([-180, 180, 70, 90], crs=data_crs)
-#     coast._utils.plot_util.set_circle(ax[rr])
+# Create plot and flatten axis array
+fig, ax = plt.subplots(n_r, n_c, subplot_kw={"projection": mrc}, sharey=True, sharex=True, figsize=figsize)
+cax = fig.add_axes([0.3, 0.96, 0.4, 0.01])
 
 
-# cs = ax[0].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
-# ax[0].quiver(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
-#     data_u.to_array().values[0, :, :], data_v.to_array().values[0, :, :], 
-#     color='w', transform=data_crs, angles='xy', regrid_shape=40)
+ax = ax.flatten()
+for rr in range(n_r * n_c):
+    ax[rr].add_feature(cfeature.LAND, zorder=100)
+    ax[rr].gridlines()
+    ax[rr].set_extent([-180, 180, 70, 90], crs=data_crs)
+    coast._utils.plot_util.set_circle(ax[rr])
 
-# ax[1].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
-# ax[1].quiver(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
-#     u_new, v_new, 
-#     color='w', transform=data_crs, angles='xy', regrid_shape=40)
 
-# ax[2].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
-# ax[2].quiver(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
-#     u_pol, v_pol, 
-#     color='w', transform=data_crs, angles='xy', regrid_shape=40)
+cs = ax[0].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
+ax[0].quiver(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
+    data_u.to_array().values[0, :, :], data_v.to_array().values[0, :, :], 
+    color='w', transform=data_crs, angles='xy', regrid_shape=40)
 
-# ax[3].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
-# ax[3].streamplot(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
-#     u_pol, v_pol, transform=data_crs, linewidth=1, density=2, color='w', zorder=101)
+ax[1].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
+ax[1].quiver(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
+    u_new, v_new, 
+    color='w', transform=data_crs, angles='xy', regrid_shape=40)
 
-# ax[0].set_title('1: No Correction')
-# ax[1].set_title('2: NEMO Grid Correction')
-# ax[2].set_title('3: Grid Correction and Polar Correction')
-# ax[3].set_title('As left but with streamlines')
+ax[2].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
+ax[2].quiver(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
+    u_pol, v_pol, 
+    color='w', transform=data_crs, angles='xy', regrid_shape=40)
 
-# fig.colorbar(cs, cax=cax, orientation='horizontal')
-# cax.set_xlabel('U (m s$^{-1}$)')
+ax[3].pcolormesh(nemo_data_t.longitude.values, nemo_data_t.latitude.values, speed, transform=data_crs, vmin=0, vmax=0.3)
+ax[3].streamplot(nemo_data_t.longitude.values, nemo_data_t.latitude.values, 
+    u_pol, v_pol, transform=data_crs, linewidth=1, density=2, color='w', zorder=101)
 
-# #fig.tight_layout(w_pad=subplot_padding, h_pad=subplot_padding)
-# #fig.subplots_adjust(left=(fig_pad[0]), bottom=(fig_pad[1]), right=(1 - fig_pad[2]), top=(1 - fig_pad[3]))
+ax[0].set_title('1: No Correction')
+ax[1].set_title('2: NEMO Grid Correction')
+ax[2].set_title('3: Grid Correction and Polar Correction')
+ax[3].set_title('As left but with streamlines')
 
-# plt.show()
-# # uncomment this line to save an output image
+fig.colorbar(cs, cax=cax, orientation='horizontal')
+cax.set_xlabel('U (m s$^{-1}$)')
+
+#fig.tight_layout(w_pad=subplot_padding, h_pad=subplot_padding)
+#fig.subplots_adjust(left=(fig_pad[0]), bottom=(fig_pad[1]), right=(1 - fig_pad[2]), top=(1 - fig_pad[3]))
+
+plt.show()
+# uncomment this line to save an output image
 # fig.savefig(fn_out)
 ```
+![png](/COAsT/polar_plotting_files/polar_plotting_14_1.png)
 
 Below shows the temperature plots
 
@@ -223,29 +224,30 @@ data_temp = nemo_data_t.temperature.isel(t_dim=0, z_dim=0)
 
 
 ```python
-# figsize = (5, 5)  # Figure size
-# fig = plt.figure(figsize=figsize)
-# ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.75], projection=mrc)
-# cax = fig.add_axes([0.3, 0.96, 0.4, 0.01])
+figsize = (5, 5)  # Figure size
+fig = plt.figure(figsize=figsize)
+ax1 = fig.add_axes([0.1, 0.1, 0.8, 0.75], projection=mrc)
+cax = fig.add_axes([0.3, 0.96, 0.4, 0.01])
 
-# ax1.add_feature(cfeature.LAND, zorder=105)
-# ax1.gridlines()
-# ax1.set_extent([-180, 180, 70, 90], crs=data_crs)
-# coast._utils.plot_util.set_circle(ax1)
+ax1.add_feature(cfeature.LAND, zorder=105)
+ax1.gridlines()
+ax1.set_extent([-180, 180, 70, 90], crs=data_crs)
+coast._utils.plot_util.set_circle(ax1)
 
-# # We use to a function to re-project the data for plotting contours over the pole.
-# cs1 = coast._utils.plot_util.plot_polar_contour(
-#     nemo_data_t.longitude.values, nemo_data_t.latitude.values, data_bathy, ax1, levels=6, colors="k", zorder=101
-# )
-# cs2 = ax1.pcolormesh(
-#     nemo_data_t.longitude.values, nemo_data_t.latitude.values, data_temp, transform=data_crs, vmin=-2, vmax=8
-# )
-# cax.set_xlabel(r"SST ($^{\circ}$C)")
-# fig.colorbar(cs2, cax=cax, orientation="horizontal")
+# We use to a function to re-project the data for plotting contours over the pole.
+cs1 = coast._utils.plot_util.plot_polar_contour(
+    nemo_data_t.longitude.values, nemo_data_t.latitude.values, data_bathy, ax1, levels=6, colors="k", zorder=101
+)
+cs2 = ax1.pcolormesh(
+    nemo_data_t.longitude.values, nemo_data_t.latitude.values, data_temp, transform=data_crs, vmin=-2, vmax=8
+)
+cax.set_xlabel(r"SST ($^{\circ}$C)")
+fig.colorbar(cs2, cax=cax, orientation="horizontal")
 
-# # fig.savefig(fn_out, dpi=120)
+# fig.savefig(fn_out, dpi=120)
 
 ```
+![png](/COAsT/polar_plotting_files/polar_plotting_17_3.png)
 
 
 ```python
