@@ -138,6 +138,10 @@ processed_profile = profile.process_en4()
 profile = processed_profile
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+
+
 We can do some simple spatial and temporal manipulations of this data:
 
 
@@ -197,7 +201,7 @@ fn_nemo_config = path.join(root, "./config/example_nemo_grid_t.json")
 nemo = coast.Gridded(fn_nemo_dat, fn_nemo_dom, multiple=True, config=fn_nemo_config)
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:278: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:282: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
 
 
 #### Create a landmask array in Gridded
@@ -221,6 +225,8 @@ nemo.dataset = nemo.dataset.rename({"depth_0": "depth"})  # profile methods will
 model_profiles = profile.obs_operator(nemo)
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
     /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
     /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
 
@@ -330,7 +336,7 @@ differences.dataset.diff_temperature.plot()
 
 
 
-    <matplotlib.collections.QuadMesh at 0x7f55f059ec50>
+    <matplotlib.collections.QuadMesh at 0x7fc7701932b0>
 
 
 
@@ -358,7 +364,7 @@ plt.colorbar( label='temperature diff (obs-model)')
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f55f03581c0>
+    <matplotlib.colorbar.Colorbar at 0x7fc768f20820>
 
 
 
@@ -537,6 +543,9 @@ containing averaged data for each region:
 mask_means = analysis.mask_means(profile, mask_indices)
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+
+
 which can be visualised or further processed
 
 
@@ -558,7 +567,7 @@ plt.legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7f55f03eadd0>
+    <matplotlib.legend.Legend at 0x7fc768c11660>
 
 
 
@@ -598,7 +607,7 @@ plt.colorbar()
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f55e0dfaad0>
+    <matplotlib.colorbar.Colorbar at 0x7fc7689ef130>
 
 
 
@@ -639,7 +648,7 @@ plt.colorbar()
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f55e0d09ea0>
+    <matplotlib.colorbar.Colorbar at 0x7fc7688f6350>
 
 
 
