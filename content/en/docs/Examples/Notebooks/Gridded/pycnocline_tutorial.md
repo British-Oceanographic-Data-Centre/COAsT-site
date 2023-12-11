@@ -122,7 +122,8 @@ strat = coast.GriddedStratification(nemo_nwes_t)
 strat.construct_pycnocline_vars( nemo_nwes_t, nemo_nwes_w )
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/computation.py:821: RuntimeWarning: invalid value encountered in sqrt
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/computation.py:822: RuntimeWarning: invalid value encountered in sqrt
 
 
 ### Plotting data
