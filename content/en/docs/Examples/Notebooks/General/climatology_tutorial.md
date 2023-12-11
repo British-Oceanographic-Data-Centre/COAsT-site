@@ -70,7 +70,7 @@ nemo_data = coast.Gridded(fn_data=fn_nemo_dat,
 
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:278: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:282: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
 
 
 Calculate the climatology for temperature and sea surface height (ssh) as an example:
