@@ -27,25 +27,6 @@ import matplotlib.colors as colors  # colormap fiddling
 import xarray as xr
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-
-
 
 ```python
 # set some paths
@@ -78,7 +59,6 @@ regional_masks = []
 lon = nemo.dataset.longitude.values
 lat = nemo.dataset.latitude.values
 bathy = nemo.dataset.bathymetry.values
-
 ```
 
 # Use MaskMaker to define new regions
@@ -135,9 +115,18 @@ masks_list.append(mm.region_def_nws_irish_sea(lon, lat, bathy))
 masks_list.append(mm.region_def_nws_kattegat(lon, lat, bathy))
 masks_list.append(mm.region_def_nws_fsc(lon, lat, bathy))
 
-masks_names = ["whole domain", "northern north sea", "southern north sea", "outer shelf",
-               "norwegian trench", "english_channel",  "off shelf",
-                "irish sea", "kattegat", "fsc"]
+masks_names = [
+    "whole domain",
+    "northern north sea",
+    "southern north sea",
+    "outer shelf",
+    "norwegian trench",
+    "english_channel",
+    "off shelf",
+    "irish sea",
+    "kattegat",
+    "fsc",
+]
 ```
 
 As before the numpy arrays (here as a list) can be converted into an xarray dataset where each mask is separated along the `dim_mask` dimension
@@ -158,10 +147,11 @@ Inspect the mask with a `quick_plot()` method.
 
 ```python
 mm.quick_plot(mask_xr)
-
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
 
 
 
@@ -174,11 +164,11 @@ NB overlapping regions are not given special treatment, the layers are blindly s
 
 
 ```python
-plt.subplot(2,2,1)
-mm.quick_plot(mask_xr.sel(dim_mask=[0,3,9]))
+plt.subplot(2, 2, 1)
+mm.quick_plot(mask_xr.sel(dim_mask=[0, 3, 9]))
 
-plt.subplot(2,2,2)
-mm.quick_plot(mask_xr.sel(dim_mask=[1,2,4,5,6,7,8]))
+plt.subplot(2, 2, 2)
+mm.quick_plot(mask_xr.sel(dim_mask=[1, 2, 4, 5, 6, 7, 8]))
 
 plt.tight_layout()
 ```
@@ -192,16 +182,16 @@ plt.tight_layout()
 
 ```python
 # Show overlap
-mask_xr.mask.sum(dim='dim_mask').plot(levels=(1,2,3,4))
+mask_xr.mask.sum(dim="dim_mask").plot(levels=(1, 2, 3, 4))
 
 # Save if required
-#plt.savefig('tmp.png')
+# plt.savefig('tmp.png')
 ```
 
 
 
 
-    <matplotlib.collections.QuadMesh at 0x7ff422dad570>
+    <matplotlib.collections.QuadMesh at 0x7f0b5f4bf190>
 
 
 
@@ -219,10 +209,9 @@ Apply the regional masks to average SST
 ```python
 # Read EN4 data into profile object
 fn_prof = path.join(dn_files, "coast_example_en4_201008.nc")
-fn_cfg_prof = path.join("config","example_en4_profiles.json")
+fn_cfg_prof = path.join("config", "example_en4_profiles.json")
 profile = coast.Profile(config=fn_cfg_prof)
-profile.read_en4( fn_prof )
-
+profile.read_en4(fn_prof)
 ```
 
     config/example_en4_profiles.json
@@ -242,9 +231,6 @@ This returns an object called `mask_indices`, which is required to pass to `Prof
 ```python
 profile_mask_means = analysis.mask_means(profile, mask_indices)
 ```
-
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-
 
 This routine operates over all variables in the `profile` object. It calculates means by region preserving depth information (`profile_mean_*`) and also averaging over depth information (`all_mean_*`). The variables are returned with these prefixes accordingly. 
 
@@ -636,9 +622,9 @@ Data variables:
     all_mean_temperature                (dim_mask) float32 7.48 6.685 ... 7.275
     all_mean_practical_salinity         (dim_mask) float32 34.57 34.86 ... 33.76
     all_mean_qc_flags_profiles          (dim_mask) float64 4.422e+05 ... 1.93...
-    all_mean_qc_flags_levels            (dim_mask) float64 3.272e+07 ... 3.68...</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-331293ed-277f-496d-bbeb-c55a2d8de14a' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-331293ed-277f-496d-bbeb-c55a2d8de14a' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>dim_mask</span>: 8</li><li><span>z_dim</span>: 400</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-e286b044-1b91-4d6e-988e-a6af9b4a2054' class='xr-section-summary-in' type='checkbox'  checked><label for='section-e286b044-1b91-4d6e-988e-a6af9b4a2054' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>region_names</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>&lt;U18</div><div class='xr-var-preview xr-preview'>&#x27;whole domain&#x27; ... &#x27;kattegat&#x27;</div><input id='attrs-14b272bb-70a9-41bf-b70a-4329f317f373' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-14b272bb-70a9-41bf-b70a-4329f317f373' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-56d40dcb-ab9a-4cd3-8e01-0cf436ef7893' class='xr-var-data-in' type='checkbox'><label for='data-56d40dcb-ab9a-4cd3-8e01-0cf436ef7893' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;whole domain&#x27;, &#x27;northern north sea&#x27;, &#x27;southern north sea&#x27;,
+    all_mean_qc_flags_levels            (dim_mask) float64 3.272e+07 ... 3.68...</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-9a8f63e3-5997-4507-8979-3dc9369ce160' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-9a8f63e3-5997-4507-8979-3dc9369ce160' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>dim_mask</span>: 8</li><li><span>z_dim</span>: 400</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-e07c459d-772f-4c55-b2f6-83a622905018' class='xr-section-summary-in' type='checkbox'  checked><label for='section-e07c459d-772f-4c55-b2f6-83a622905018' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>region_names</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>&lt;U18</div><div class='xr-var-preview xr-preview'>&#x27;whole domain&#x27; ... &#x27;kattegat&#x27;</div><input id='attrs-69203541-6f11-439d-bdd5-170820bbd99a' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-69203541-6f11-439d-bdd5-170820bbd99a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-431b4172-8d9c-4c66-9793-c2ecb31e3c06' class='xr-var-data-in' type='checkbox'><label for='data-431b4172-8d9c-4c66-9793-c2ecb31e3c06' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;whole domain&#x27;, &#x27;northern north sea&#x27;, &#x27;southern north sea&#x27;,
        &#x27;outer shelf&#x27;, &#x27;norwegian trench&#x27;, &#x27;english_channel&#x27;, &#x27;off shelf&#x27;,
-       &#x27;kattegat&#x27;], dtype=&#x27;&lt;U18&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-acd8641d-ed05-4e30-899b-0dbe8c032b77' class='xr-section-summary-in' type='checkbox'  checked><label for='section-acd8641d-ed05-4e30-899b-0dbe8c032b77' class='xr-section-summary' >Data variables: <span>(12)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_depth</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>3.802 12.43 12.75 ... nan nan nan</div><input id='attrs-d2e6b1f2-ec00-4f56-9c1f-c12866871710' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-d2e6b1f2-ec00-4f56-9c1f-c12866871710' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-62b37fb4-1bfd-422b-8433-fb6f63e46aa7' class='xr-var-data-in' type='checkbox'><label for='data-62b37fb4-1bfd-422b-8433-fb6f63e46aa7' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[3.8015647e+00, 1.2431897e+01, 1.2752748e+01, ..., 6.8166663e+02,
+       &#x27;kattegat&#x27;], dtype=&#x27;&lt;U18&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-95ceac7e-76bc-4289-a060-74ca06b9d6f4' class='xr-section-summary-in' type='checkbox'  checked><label for='section-95ceac7e-76bc-4289-a060-74ca06b9d6f4' class='xr-section-summary' >Data variables: <span>(12)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_depth</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>3.802 12.43 12.75 ... nan nan nan</div><input id='attrs-54bfa286-e33a-49cc-b79f-4bdaad238a00' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-54bfa286-e33a-49cc-b79f-4bdaad238a00' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-986280fb-3025-4c4d-a568-8176cf0b9bce' class='xr-var-data-in' type='checkbox'><label for='data-986280fb-3025-4c4d-a568-8176cf0b9bce' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[3.8015647e+00, 1.2431897e+01, 1.2752748e+01, ..., 6.8166663e+02,
         4.4625000e+02, 4.8479999e+02],
        [5.3978572e+00, 2.4058212e+01, 1.9938543e+01, ...,           nan,
                   nan,           nan],
@@ -650,7 +636,7 @@ Data variables:
        [1.0883763e+01, 1.9575655e+01, 3.1419313e+01, ..., 1.1761000e+03,
                   nan,           nan],
        [1.1508474e+00, 5.1322031e+00, 8.6844826e+00, ...,           nan,
-                  nan,           nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_potential_temperature</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>4.629 4.718 4.732 ... nan nan nan</div><input id='attrs-ae4cf1f5-f25d-4432-8034-f0f19df0796b' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-ae4cf1f5-f25d-4432-8034-f0f19df0796b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6dd3d802-0390-4822-84ea-40c37040dcca' class='xr-var-data-in' type='checkbox'><label for='data-6dd3d802-0390-4822-84ea-40c37040dcca' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ 4.629049  ,  4.7177176 ,  4.7318735 , ...,  4.4791145 ,
+                  nan,           nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_potential_temperature</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>4.629 4.718 4.732 ... nan nan nan</div><input id='attrs-b22105c7-8984-4e2c-b88b-a38c1ee2c0bc' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-b22105c7-8984-4e2c-b88b-a38c1ee2c0bc' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7228d717-a336-4e62-ab5c-0ef2a160cd9a' class='xr-var-data-in' type='checkbox'><label for='data-7228d717-a336-4e62-ab5c-0ef2a160cd9a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ 4.629049  ,  4.7177176 ,  4.7318735 , ...,  4.4791145 ,
          7.0863085 ,  7.4710603 ],
        [ 5.4062243 ,  5.538929  ,  5.3454785 , ...,         nan,
                 nan,         nan],
@@ -662,7 +648,7 @@ Data variables:
        [10.741058  , 10.7420845 , 10.740048  , ..., -0.8672274 ,
                 nan,         nan],
        [ 0.6519121 ,  0.89932823,  1.4384961 , ...,         nan,
-                nan,         nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_temperature</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>4.629 4.719 4.733 ... nan nan nan</div><input id='attrs-bcb67f9b-ae39-4b27-b54a-d07e5d858dfc' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-bcb67f9b-ae39-4b27-b54a-d07e5d858dfc' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-35352e34-d81d-4f0c-b045-49b30456a549' class='xr-var-data-in' type='checkbox'><label for='data-35352e34-d81d-4f0c-b045-49b30456a549' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ 4.629366  ,  4.7186904 ,  4.7328353 , ...,  4.523333  ,
+                nan,         nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_temperature</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>4.629 4.719 4.733 ... nan nan nan</div><input id='attrs-a722df95-7676-4b5a-a585-d1b8bfdbce12' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-a722df95-7676-4b5a-a585-d1b8bfdbce12' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-90b9cc36-6448-4ed8-aeae-4940b4962a13' class='xr-var-data-in' type='checkbox'><label for='data-90b9cc36-6448-4ed8-aeae-4940b4962a13' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ 4.629366  ,  4.7186904 ,  4.7328353 , ...,  4.523333  ,
          7.13      ,  7.52      ],
        [ 5.4066286 ,  5.540855  ,  5.3469286 , ...,         nan,
                 nan,         nan],
@@ -674,7 +660,7 @@ Data variables:
        [10.742379  , 10.744476  , 10.743904  , ..., -0.82      ,
                 nan,         nan],
        [ 0.6519491 ,  0.89944816,  1.4387244 , ...,         nan,
-                nan,         nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_practical_salinity</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>29.08 29.49 30.4 ... nan nan nan</div><input id='attrs-3e61cf3a-ebdf-4df1-b97b-1e7328c8cd22' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-3e61cf3a-ebdf-4df1-b97b-1e7328c8cd22' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-23eb3d7b-412f-4abb-a28d-9ecbb91d1d56' class='xr-var-data-in' type='checkbox'><label for='data-23eb3d7b-412f-4abb-a28d-9ecbb91d1d56' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[29.07752 , 29.488913, 30.403212, ..., 35.102665, 35.194   ,
+                nan,         nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_practical_salinity</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>29.08 29.49 30.4 ... nan nan nan</div><input id='attrs-44ee43d5-59a0-49ec-b8b3-f1f9ddfa781b' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-44ee43d5-59a0-49ec-b8b3-f1f9ddfa781b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-db2dbbce-c132-4846-9c7f-50953d387732' class='xr-var-data-in' type='checkbox'><label for='data-db2dbbce-c132-4846-9c7f-50953d387732' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[29.07752 , 29.488913, 30.403212, ..., 35.102665, 35.194   ,
         35.191   ],
        [34.215603, 34.549515, 34.572178, ...,       nan,       nan,
               nan],
@@ -686,9 +672,9 @@ Data variables:
        [35.41276 , 35.531857, 35.523746, ..., 34.912   ,       nan,
               nan],
        [22.681366, 23.651918, 24.719212, ...,       nan,       nan,
-              nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_qc_flags_profiles</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>4.422e+05 1.501e+04 ... 1.93e+06</div><input id='attrs-db02b918-31d5-4f73-9ad7-3fb364573e38' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-db02b918-31d5-4f73-9ad7-3fb364573e38' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f92a493e-4f4f-4e4c-9e49-f8588c027b9d' class='xr-var-data-in' type='checkbox'><label for='data-f92a493e-4f4f-4e4c-9e49-f8588c027b9d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 442235.24343675,   15008.98928571,   80146.01273885,
+              nan]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_qc_flags_profiles</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>4.422e+05 1.501e+04 ... 1.93e+06</div><input id='attrs-ff638626-8d28-4ee7-98f9-7fe7ceb79b3e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-ff638626-8d28-4ee7-98f9-7fe7ceb79b3e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c5cbf219-dda1-4b28-8bd2-91e7c5f2e8d8' class='xr-var-data-in' type='checkbox'><label for='data-c5cbf219-dda1-4b28-8bd2-91e7c5f2e8d8' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 442235.24343675,   15008.98928571,   80146.01273885,
         376662.06666667,  938649.58108108,  236414.92957746,
-        351245.56410256, 1930156.61016949])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_qc_flags_levels</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>1.693e+07 1.56e+07 ... 3.356e+07</div><input id='attrs-98ec9456-f5aa-4df8-9389-aba2f6b43dba' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-98ec9456-f5aa-4df8-9389-aba2f6b43dba' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b82849b7-7bba-45c9-b4e9-5d2c39c7aa42' class='xr-var-data-in' type='checkbox'><label for='data-b82849b7-7bba-45c9-b4e9-5d2c39c7aa42' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[1.69308660e+07, 1.55996508e+07, 1.91944702e+07, ...,
+        351245.56410256, 1930156.61016949])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>profile_mean_qc_flags_levels</span></div><div class='xr-var-dims'>(dim_mask, z_dim)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>1.693e+07 1.56e+07 ... 3.356e+07</div><input id='attrs-1ff4ce42-6d61-4a8d-8c21-054441304448' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-1ff4ce42-6d61-4a8d-8c21-054441304448' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4fb87785-4a3a-4dcd-962f-b6ed1fc2ed91' class='xr-var-data-in' type='checkbox'><label for='data-4fb87785-4a3a-4dcd-962f-b6ed1fc2ed91' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[1.69308660e+07, 1.55996508e+07, 1.91944702e+07, ...,
         3.35092258e+07, 3.35359264e+07, 3.35359264e+07],
        [2.41202110e+06, 1.67795573e+06, 1.43838659e+07, ...,
         3.35626270e+07, 3.35626270e+07, 3.35626270e+07],
@@ -700,15 +686,15 @@ Data variables:
        [2.49180806e+06, 2.49194591e+06, 1.91836366e+06, ...,
         3.32757669e+07, 3.35626270e+07, 3.35626270e+07],
        [1.07067776e+08, 1.03513576e+08, 9.04351003e+07, ...,
-        3.35626270e+07, 3.35626270e+07, 3.35626270e+07]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_depth</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>219.3 48.17 17.66 ... 492.1 86.48</div><input id='attrs-82f67f4f-ac5b-4700-b925-02024e573f79' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-82f67f4f-ac5b-4700-b925-02024e573f79' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8f661d28-0537-457d-98f7-c3df0b30323c' class='xr-var-data-in' type='checkbox'><label for='data-8f661d28-0537-457d-98f7-c3df0b30323c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([219.31877 ,  48.17008 ,  17.655499,  54.261852, 147.37276 ,
-        21.17876 , 492.1379  ,  86.48219 ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_potential_temperature</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>7.458 6.68 5.08 ... 8.609 7.266</div><input id='attrs-f023ace2-14e0-4a6d-ac58-4cc3ae4dead6' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-f023ace2-14e0-4a6d-ac58-4cc3ae4dead6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-20b821b3-bf08-403a-b89b-3ed93c007f8f' class='xr-var-data-in' type='checkbox'><label for='data-20b821b3-bf08-403a-b89b-3ed93c007f8f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 7.4579477,  6.6803527,  5.0804653, 10.605105 ,  7.5581946,
-        7.9912376,  8.609107 ,  7.266073 ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_temperature</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>7.48 6.685 5.082 ... 8.658 7.275</div><input id='attrs-57c0bf20-5c70-45d7-99af-2e4780c0e5a3' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-57c0bf20-5c70-45d7-99af-2e4780c0e5a3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7e099da8-2011-4b10-ab76-a1473b7e58dc' class='xr-var-data-in' type='checkbox'><label for='data-7e099da8-2011-4b10-ab76-a1473b7e58dc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 7.479547 ,  6.684928 ,  5.0818586, 10.611826 ,  7.572891 ,
-        7.993422 ,  8.657866 ,  7.2747602], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_practical_salinity</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>34.57 34.86 34.49 ... 35.33 33.76</div><input id='attrs-417b4458-788b-4e3d-b4a8-b3bef316c423' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-417b4458-788b-4e3d-b4a8-b3bef316c423' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-74aa96a7-30cd-49ee-8b61-a47934bbc44c' class='xr-var-data-in' type='checkbox'><label for='data-74aa96a7-30cd-49ee-8b61-a47934bbc44c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([34.574173, 34.85523 , 34.486984, 35.177284, 34.745213, 34.871284,
-       35.334602, 33.764072], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_qc_flags_profiles</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>4.422e+05 1.501e+04 ... 1.93e+06</div><input id='attrs-780dea98-a17b-40b3-9ca1-5a21e7c207b3' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-780dea98-a17b-40b3-9ca1-5a21e7c207b3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-69be3529-5ce1-496f-b2d2-72c453d30b97' class='xr-var-data-in' type='checkbox'><label for='data-69be3529-5ce1-496f-b2d2-72c453d30b97' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 442235.24343675,   15008.98928571,   80146.01273885,
+        3.35626270e+07, 3.35626270e+07, 3.35626270e+07]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_depth</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>219.3 48.17 17.66 ... 492.1 86.48</div><input id='attrs-baeeb9fd-a453-4a3a-8a03-c1da093b1e8f' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-baeeb9fd-a453-4a3a-8a03-c1da093b1e8f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-17e1677c-e823-457a-b48c-43eaacbf607a' class='xr-var-data-in' type='checkbox'><label for='data-17e1677c-e823-457a-b48c-43eaacbf607a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([219.31877 ,  48.17008 ,  17.655499,  54.261852, 147.37276 ,
+        21.17876 , 492.1379  ,  86.48219 ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_potential_temperature</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>7.458 6.68 5.08 ... 8.609 7.266</div><input id='attrs-8e65e577-a6b9-4045-bd1b-3c6ccc7b646f' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-8e65e577-a6b9-4045-bd1b-3c6ccc7b646f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-44fe65dc-0819-438c-9bfa-c35a1c224d2f' class='xr-var-data-in' type='checkbox'><label for='data-44fe65dc-0819-438c-9bfa-c35a1c224d2f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 7.4579477,  6.6803527,  5.0804653, 10.605105 ,  7.5581946,
+        7.9912376,  8.609107 ,  7.266073 ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_temperature</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>7.48 6.685 5.082 ... 8.658 7.275</div><input id='attrs-f11efb3a-0d85-4fc3-a907-9d2dafcfbb55' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-f11efb3a-0d85-4fc3-a907-9d2dafcfbb55' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-263054f8-33df-4e74-8871-968db5c80ded' class='xr-var-data-in' type='checkbox'><label for='data-263054f8-33df-4e74-8871-968db5c80ded' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 7.479547 ,  6.684928 ,  5.0818586, 10.611826 ,  7.572891 ,
+        7.993422 ,  8.657866 ,  7.2747602], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_practical_salinity</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>34.57 34.86 34.49 ... 35.33 33.76</div><input id='attrs-13048ca9-685b-491c-9abe-c7787935d60e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-13048ca9-685b-491c-9abe-c7787935d60e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1ace663b-d0fb-48e4-a614-e0cb8d92d487' class='xr-var-data-in' type='checkbox'><label for='data-1ace663b-d0fb-48e4-a614-e0cb8d92d487' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([34.574173, 34.85523 , 34.486984, 35.177284, 34.745213, 34.871284,
+       35.334602, 33.764072], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_qc_flags_profiles</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>4.422e+05 1.501e+04 ... 1.93e+06</div><input id='attrs-516772b1-6e94-4fac-8cdd-c23d8cc536f8' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-516772b1-6e94-4fac-8cdd-c23d8cc536f8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f9f8c386-e6b6-4942-904a-6cf60f4c5868' class='xr-var-data-in' type='checkbox'><label for='data-f9f8c386-e6b6-4942-904a-6cf60f4c5868' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 442235.24343675,   15008.98928571,   80146.01273885,
         376662.06666667,  938649.58108108,  236414.92957746,
-        351245.56410256, 1930156.61016949])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_qc_flags_levels</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>3.272e+07 3.244e+07 ... 3.683e+07</div><input id='attrs-339d5ce0-3cc2-45ca-b672-1b47fb850249' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-339d5ce0-3cc2-45ca-b672-1b47fb850249' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1659ac42-d16a-45e3-add0-b60474030f02' class='xr-var-data-in' type='checkbox'><label for='data-1659ac42-d16a-45e3-add0-b60474030f02' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([32717180.43962013, 32440148.97097322, 33282693.25738854,
+        351245.56410256, 1930156.61016949])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>all_mean_qc_flags_levels</span></div><div class='xr-var-dims'>(dim_mask)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>3.272e+07 3.244e+07 ... 3.683e+07</div><input id='attrs-3454c2c1-1c5f-42bb-a981-af7b76f964f6' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-3454c2c1-1c5f-42bb-a981-af7b76f964f6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-63d5e44f-f4ea-400a-bd6f-d681bb16d58b' class='xr-var-data-in' type='checkbox'><label for='data-63d5e44f-f4ea-400a-bd6f-d681bb16d58b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([32717180.43962013, 32440148.97097322, 33282693.25738854,
        32052298.20066667, 38954525.82148649, 32985344.45144366,
-       26732339.47348291, 36830323.95974576])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-f398078c-4c27-4e9f-b0ef-f6392fb1c4e2' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-f398078c-4c27-4e9f-b0ef-f6392fb1c4e2' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-6afabc59-ded8-430c-8c8d-94f71d4d2f3b' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-6afabc59-ded8-430c-8c8d-94f71d4d2f3b' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div>
+       26732339.47348291, 36830323.95974576])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-899be0aa-0eef-46f9-adbe-05d59d21f403' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-899be0aa-0eef-46f9-adbe-05d59d21f403' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-a216a373-1ce5-41fb-805c-ab7d97441da8' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-a216a373-1ce5-41fb-805c-ab7d97441da8' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div>
 
 
 
@@ -723,32 +709,31 @@ print(check1)
     False
 
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-
-
 The mean profiles can be visualised or further processed (notice the Irish Sea region and FSC are missing because there were no profiles in the example dataset)
 
 
 ```python
-for count_region in range(profile_mask_means.sizes['dim_mask']):    
-    plt.plot( 
-            profile_mask_means.profile_mean_temperature.isel(dim_mask=count_region),
-            profile_mask_means.profile_mean_depth.isel(dim_mask=count_region),
-            label=profile_mask_means.region_names[count_region].values,
-            marker=".", linestyle='none')
+for count_region in range(profile_mask_means.sizes["dim_mask"]):
+    plt.plot(
+        profile_mask_means.profile_mean_temperature.isel(dim_mask=count_region),
+        profile_mask_means.profile_mean_depth.isel(dim_mask=count_region),
+        label=profile_mask_means.region_names[count_region].values,
+        marker=".",
+        linestyle="none",
+    )
 
-plt.ylim([10,1000])
+plt.ylim([10, 1000])
 plt.yscale("log")
 plt.gca().invert_yaxis()
-plt.xlabel('temperature'); plt.ylabel('depth')
+plt.xlabel("temperature")
+plt.ylabel("depth")
 plt.legend()
-
 ```
 
 
 
 
-    <matplotlib.legend.Legend at 0x7ff41ca08c40>
+    <matplotlib.legend.Legend at 0x7f0b5f363940>
 
 
 
@@ -764,8 +749,8 @@ Apply the regional masks to average SST. This is done manually as there are not 
 
 
 ```python
-# Syntax: xr.where(if <first>, then <2nd>, else <3rd>) 
-mask_SST = xr.where( mask_xr.mask, nemo.dataset.temperature.isel(z_dim=0), np.NaN)
+# Syntax: xr.where(if <first>, then <2nd>, else <3rd>)
+mask_SST = xr.where(mask_xr.mask, nemo.dataset.temperature.isel(z_dim=0), np.NaN)
 
 # Take the mean over space for each region
 mask_mean_SST = mask_SST.mean(dim="x_dim").mean(dim="y_dim")
@@ -780,7 +765,7 @@ mask_mean_SST.plot()
 
 
 
-    <matplotlib.collections.QuadMesh at 0x7ff422cef100>
+    <matplotlib.collections.QuadMesh at 0x7f0b5f2f38e0>
 
 
 
@@ -794,21 +779,24 @@ mask_mean_SST.plot()
 ```python
 # Plot timeseries per region
 
-for count_region in range(mask_mean_SST.sizes['dim_mask']):
-    
-    plt.plot( 
+for count_region in range(mask_mean_SST.sizes["dim_mask"]):
+
+    plt.plot(
         mask_mean_SST.isel(dim_mask=count_region),
         label=mask_mean_SST.region_names[count_region].values,
-        marker=".", linestyle='none')
+        marker=".",
+        linestyle="none",
+    )
 
-plt.xlabel('time'); plt.ylabel('SST')
+plt.xlabel("time")
+plt.ylabel("SST")
 plt.legend()
 ```
 
 
 
 
-    <matplotlib.legend.Legend at 0x7ff422cbac80>
+    <matplotlib.legend.Legend at 0x7f0b5f2e5360>
 
 
 

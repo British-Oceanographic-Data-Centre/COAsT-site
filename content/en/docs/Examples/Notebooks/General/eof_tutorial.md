@@ -22,28 +22,9 @@ root = "./"
 dn_files = root + "./example_files/"
 
 fn_nemo_dat_t = dn_files + "nemo_data_T_grid.nc"
-fn_nemo_dom   = dn_files + "coast_example_nemo_domain.nc"
+fn_nemo_dom = dn_files + "coast_example_nemo_domain.nc"
 fn_nemo_config = root + "./config/example_nemo_grid_t.json"
 ```
-
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-
 
 ### Loading data
 
@@ -51,7 +32,7 @@ fn_nemo_config = root + "./config/example_nemo_grid_t.json"
 ```python
 # Load data variables that are on the NEMO t-grid
 
-nemo_t = coast.Gridded( fn_data = fn_nemo_dat_t, fn_domain = fn_nemo_dom, config = fn_nemo_config )
+nemo_t = coast.Gridded(fn_data=fn_nemo_dat_t, fn_domain=fn_nemo_dom, config=fn_nemo_config)
 ```
 
 ### Compute EOF
@@ -60,14 +41,14 @@ For a variable (or subset of a variable) with two spatial dimensions and one tem
 
 
 ```python
-eof_data = coast.compute_eofs( nemo_t.dataset.ssh )
+eof_data = coast.compute_eofs(nemo_t.dataset.ssh)
 ```
 
 The method returns an xarray dataset that contains the EOFs, temporal projections and variance as DataArrays
 
 
 ```python
-#eof_data  # uncomment to print data object summary
+# eof_data  # uncomment to print data object summary
 ```
 
 ### Inspect EOFs
@@ -83,31 +64,36 @@ And the EOFs and temporal projections can be quick plotted:
 
 
 ```python
-eof_data.EOF.sel(mode=[1,2,3,4]).plot.pcolormesh(col='mode',col_wrap=2,x='longitude',y='latitude')
+eof_data.EOF.sel(mode=[1, 2, 3, 4]).plot.pcolormesh(col="mode", col_wrap=2, x="longitude", y="latitude")
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
 
 
 
-    <xarray.plot.facetgrid.FacetGrid at 0x7f0104539b40>
+
+
+    <xarray.plot.facetgrid.FacetGrid at 0x7fe2fb806950>
 
 
 
 
     
-![png](/COAsT/eof_tutorial_files/eof_tutorial_12_1.png)
+![png](/COAsT/eof_tutorial_files/eof_tutorial_12_2.png)
     
 
 
 
 ```python
-eof_data.temporal_proj.sel(mode=[1,2,3,4]).plot(col='mode',col_wrap=2,x='time')
+eof_data.temporal_proj.sel(mode=[1, 2, 3, 4]).plot(col="mode", col_wrap=2, x="time")
 ```
 
 
 
 
-    <xarray.plot.facetgrid.FacetGrid at 0x7f00ebff6290>
+    <xarray.plot.facetgrid.FacetGrid at 0x7fe2f8caf820>
 
 
 
@@ -122,8 +108,8 @@ The more exotic hilbert complex EOFs can also be computed to investigate the pro
 
 
 ```python
-heof_data = coast.compute_hilbert_eofs( nemo_t.dataset.ssh )
-#heof_data # uncomment to print data object summary
+heof_data = coast.compute_hilbert_eofs(nemo_t.dataset.ssh)
+# heof_data # uncomment to print data object summary
 ```
 
 now with the modes expressed by their amplitude and phase, the spatial propagation of the variability can be examined through the EOF_phase.
