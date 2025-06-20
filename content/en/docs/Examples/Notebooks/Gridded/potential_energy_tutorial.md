@@ -21,25 +21,6 @@ import matplotlib.colors as colors  # colormap fiddling
 import xarray as xr
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-
-
 
 ```python
 # set some paths
@@ -69,14 +50,11 @@ The density and depth averaged density can be supplied within gridded_t as `dens
 
 ```python
 # Compute a vertical max to exclude depths below 200m
-Zd_mask, kmax, Ikmax = nemo.calculate_vertical_mask(200.)
+Zd_mask, kmax, Ikmax = nemo.calculate_vertical_mask(200.0)
 
 # Initiate a stratification diagnostics object
 strat = coast.GriddedStratification(nemo)
 ```
-
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-
 
 
 ```python
@@ -93,8 +71,13 @@ strat.calc_pea(nemo, Zd_mask)
 
 
 ```python
-strat.quick_plot('PEA')
+strat.quick_plot("PEA")
 ```
+
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+
 
 
 
@@ -106,7 +89,7 @@ strat.quick_plot('PEA')
 
 
     
-![png](/COAsT/potential_energy_tutorial_files/potential_energy_tutorial_11_1.png)
+![png](/COAsT/potential_energy_tutorial_files/potential_energy_tutorial_11_2.png)
     
 
 
@@ -489,10 +472,10 @@ Coordinates:
     longitude  (y_dim, x_dim) float32 -19.89 -19.78 -19.67 ... 12.78 12.89 13.0
 Dimensions without coordinates: t_dim, y_dim, x_dim
 Data variables:
-    PEA        (t_dim, y_dim, x_dim) float64 nan nan nan nan ... nan nan nan nan</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-f4dd4920-41a0-4602-a5a0-c1049a6591bc' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-f4dd4920-41a0-4602-a5a0-c1049a6591bc' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>t_dim</span>: 7</li><li><span>y_dim</span>: 375</li><li><span>x_dim</span>: 297</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-9d5a1f0f-1cbc-4ed5-9b58-b011538a1efa' class='xr-section-summary-in' type='checkbox'  checked><label for='section-9d5a1f0f-1cbc-4ed5-9b58-b011538a1efa' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>time</span></div><div class='xr-var-dims'>(t_dim)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>2015-08-01T12:00:00 ... 2015-08-...</div><input id='attrs-b36042cc-a488-4f76-92f9-5f104a930c5d' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-b36042cc-a488-4f76-92f9-5f104a930c5d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-d3bd5efb-06c8-494a-8082-10704378275f' class='xr-var-data-in' type='checkbox'><label for='data-d3bd5efb-06c8-494a-8082-10704378275f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;2015-08-01T12:00:00.000000000&#x27;, &#x27;2015-08-02T12:00:00.000000000&#x27;,
+    PEA        (t_dim, y_dim, x_dim) float64 nan nan nan nan ... nan nan nan nan</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-8847a8a4-aefa-4285-8cc6-826dd8403358' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-8847a8a4-aefa-4285-8cc6-826dd8403358' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>t_dim</span>: 7</li><li><span>y_dim</span>: 375</li><li><span>x_dim</span>: 297</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-6eb380fb-6840-4cfa-af5f-3d51c1b402ec' class='xr-section-summary-in' type='checkbox'  checked><label for='section-6eb380fb-6840-4cfa-af5f-3d51c1b402ec' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>time</span></div><div class='xr-var-dims'>(t_dim)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>2015-08-01T12:00:00 ... 2015-08-...</div><input id='attrs-b32cfc61-3601-4e42-90ab-e4eeb2c4d06e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-b32cfc61-3601-4e42-90ab-e4eeb2c4d06e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-50194f1a-b8fc-4cb8-b480-be0d9702fe82' class='xr-var-data-in' type='checkbox'><label for='data-50194f1a-b8fc-4cb8-b480-be0d9702fe82' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;2015-08-01T12:00:00.000000000&#x27;, &#x27;2015-08-02T12:00:00.000000000&#x27;,
        &#x27;2015-08-03T12:00:00.000000000&#x27;, &#x27;2015-08-04T12:00:00.000000000&#x27;,
        &#x27;2015-08-05T12:00:00.000000000&#x27;, &#x27;2015-08-06T12:00:00.000000000&#x27;,
-       &#x27;2015-08-07T12:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>latitude</span></div><div class='xr-var-dims'>(y_dim, x_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>40.07 40.07 40.07 ... 65.0 65.0</div><input id='attrs-7987c206-51c6-435f-96a9-93cdcdd62ded' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-7987c206-51c6-435f-96a9-93cdcdd62ded' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-febb365b-3f60-4368-a30d-ce55da5df11f' class='xr-var-data-in' type='checkbox'><label for='data-febb365b-3f60-4368-a30d-ce55da5df11f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[40.066406, 40.066406, 40.066406, ..., 40.066406, 40.066406,
+       &#x27;2015-08-07T12:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>latitude</span></div><div class='xr-var-dims'>(y_dim, x_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>40.07 40.07 40.07 ... 65.0 65.0</div><input id='attrs-c29ce2d4-f47e-42c3-8c1b-916c9d3dfa2d' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-c29ce2d4-f47e-42c3-8c1b-916c9d3dfa2d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-59a1690c-56dc-4cbb-a5cc-77e29d054ba9' class='xr-var-data-in' type='checkbox'><label for='data-59a1690c-56dc-4cbb-a5cc-77e29d054ba9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[40.066406, 40.066406, 40.066406, ..., 40.066406, 40.066406,
         40.066406],
        [40.13379 , 40.13379 , 40.13379 , ..., 40.13379 , 40.13379 ,
         40.13379 ],
@@ -504,7 +487,7 @@ Data variables:
        [64.93457 , 64.93457 , 64.93457 , ..., 64.93457 , 64.93457 ,
         64.93457 ],
        [65.00098 , 65.00098 , 65.00098 , ..., 65.00098 , 65.00098 ,
-        65.00098 ]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>longitude</span></div><div class='xr-var-dims'>(y_dim, x_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>-19.89 -19.78 -19.67 ... 12.89 13.0</div><input id='attrs-0722efb0-390c-4e22-8a41-e9742f95397e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-0722efb0-390c-4e22-8a41-e9742f95397e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7a072b31-2fe6-4111-80bd-56193360b837' class='xr-var-data-in' type='checkbox'><label for='data-7a072b31-2fe6-4111-80bd-56193360b837' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[-19.888672, -19.777344, -19.666992, ...,  12.777344,  12.888672,
+        65.00098 ]], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>longitude</span></div><div class='xr-var-dims'>(y_dim, x_dim)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>-19.89 -19.78 -19.67 ... 12.89 13.0</div><input id='attrs-c4dccd7a-f4c4-4e81-bd90-88f09ddbc384' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-c4dccd7a-f4c4-4e81-bd90-88f09ddbc384' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-664d0079-4d03-4739-b6e2-cf68f3f8a446' class='xr-var-data-in' type='checkbox'><label for='data-664d0079-4d03-4739-b6e2-cf68f3f8a446' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[-19.888672, -19.777344, -19.666992, ...,  12.777344,  12.888672,
          13.      ],
        [-19.888672, -19.777344, -19.666992, ...,  12.777344,  12.888672,
          13.      ],
@@ -516,7 +499,7 @@ Data variables:
        [-19.888672, -19.777344, -19.666992, ...,  12.777344,  12.888672,
          13.      ],
        [-19.888672, -19.777344, -19.666992, ...,  12.777344,  12.888672,
-         13.      ]], dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-e28f6b63-368a-459a-a32d-0054560bd1df' class='xr-section-summary-in' type='checkbox'  checked><label for='section-e28f6b63-368a-459a-a32d-0054560bd1df' class='xr-section-summary' >Data variables: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>PEA</span></div><div class='xr-var-dims'>(t_dim, y_dim, x_dim)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-899c7ea9-fda7-430f-8499-1bebc3f75bbe' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-899c7ea9-fda7-430f-8499-1bebc3f75bbe' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-177f14e9-96dc-40f3-916b-69ac24f2f21d' class='xr-var-data-in' type='checkbox'><label for='data-177f14e9-96dc-40f3-916b-69ac24f2f21d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>J / m^3</dd><dt><span>standard_name :</span></dt><dd>Potential Energy Anomaly</dd></dl></div><div class='xr-var-data'><pre>array([[[         nan,          nan,          nan, ...,          nan,
+         13.      ]], dtype=float32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-091b07a5-3ee5-432d-a57c-4e278586fd86' class='xr-section-summary-in' type='checkbox'  checked><label for='section-091b07a5-3ee5-432d-a57c-4e278586fd86' class='xr-section-summary' >Data variables: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>PEA</span></div><div class='xr-var-dims'>(t_dim, y_dim, x_dim)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>nan nan nan nan ... nan nan nan nan</div><input id='attrs-6f0d7c4f-f7a9-413b-9ad7-71f1dbd4934d' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-6f0d7c4f-f7a9-413b-9ad7-71f1dbd4934d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b4b5c5cc-14ba-415d-9dcd-4a78f59c2f0d' class='xr-var-data-in' type='checkbox'><label for='data-b4b5c5cc-14ba-415d-9dcd-4a78f59c2f0d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>J / m^3</dd><dt><span>standard_name :</span></dt><dd>Potential Energy Anomaly</dd></dl></div><div class='xr-var-data'><pre>array([[[         nan,          nan,          nan, ...,          nan,
                   nan,          nan],
         [         nan, 262.43849344, 261.16678604, ...,          nan,
                   nan,          nan],
@@ -556,7 +539,7 @@ Data variables:
         [         nan,          nan,          nan, ...,          nan,
                   nan,          nan],
         [         nan,          nan,          nan, ...,          nan,
-                  nan,          nan]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-366b5f43-869e-41fd-b701-1f9d47f47bd2' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-366b5f43-869e-41fd-b701-1f9d47f47bd2' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-a1410ba4-df0d-43c5-9bbf-df657a5f9139' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-a1410ba4-df0d-43c5-9bbf-df657a5f9139' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div>
+                  nan,          nan]]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-9b89b580-f724-481c-8c0c-959a9da69d25' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-9b89b580-f724-481c-8c0c-959a9da69d25' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-8a225f21-230a-48ce-9bbb-7bc56ad66348' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-8a225f21-230a-48ce-9bbb-7bc56ad66348' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div>
 
 
 
@@ -589,9 +572,17 @@ regional_masks.append(mm.region_def_off_shelf(lon, lat, bathy))
 regional_masks.append(mm.region_def_irish_sea(lon, lat, bathy))
 regional_masks.append(mm.region_def_kattegat(lon, lat, bathy))
 
-region_names = ["whole domain", "north sea", "outer shelf", "norwegian trench",
-                "english_channel", "southern north sea", "off shelf",
-                "irish sea", "kattegat",]
+region_names = [
+    "whole domain",
+    "north sea",
+    "outer shelf",
+    "norwegian trench",
+    "english_channel",
+    "southern north sea",
+    "off shelf",
+    "irish sea",
+    "kattegat",
+]
 ```
 
 
@@ -651,7 +642,6 @@ Inspect the mask with a `quick_plot()` method.
 
 ```python
 mm.quick_plot(mask_list)
-
 ```
 
 
@@ -670,13 +660,11 @@ NB overlapping regions are not given special treatment, the layers are blindly s
 
 
 ```python
+plt.subplot(2, 2, 1)
+mm.quick_plot(mask_list.sel(dim_mask=[0, 3]))
 
-plt.subplot(2,2,1)
-mm.quick_plot(mask_list.sel(dim_mask=[0,3]))
-
-plt.subplot(2,2,2)
-mm.quick_plot(mask_list.sel(dim_mask=[1,2,4,5,6,7,8]))
-
+plt.subplot(2, 2, 2)
+mm.quick_plot(mask_list.sel(dim_mask=[1, 2, 4, 5, 6, 7, 8]))
 
 
 plt.tight_layout()
@@ -688,10 +676,10 @@ plt.tight_layout()
     NameError                                 Traceback (most recent call last)
 
     Cell In[12], line 2
-          1 plt.subplot(2,2,1)
-    ----> 2 mm.quick_plot(mask_list.sel(dim_mask=[0,3]))
-          4 plt.subplot(2,2,2)
-          5 mm.quick_plot(mask_list.sel(dim_mask=[1,2,4,5,6,7,8]))
+          1 plt.subplot(2, 2, 1)
+    ----> 2 mm.quick_plot(mask_list.sel(dim_mask=[0, 3]))
+          4 plt.subplot(2, 2, 2)
+          5 mm.quick_plot(mask_list.sel(dim_mask=[1, 2, 4, 5, 6, 7, 8]))
 
 
     NameError: name 'mask_list' is not defined
@@ -706,10 +694,10 @@ plt.tight_layout()
 
 ```python
 # Show overlap
-mask_list.mask.sum(dim='dim_mask').plot( levels=(1,2,3,4))
+mask_list.mask.sum(dim="dim_mask").plot(levels=(1, 2, 3, 4))
 
 # Save if required
-#plt.savefig('tmp.png')
+# plt.savefig('tmp.png')
 ```
 
 
@@ -719,9 +707,9 @@ mask_list.mask.sum(dim='dim_mask').plot( levels=(1,2,3,4))
 
     Cell In[13], line 2
           1 # Show overlap
-    ----> 2 mask_list.mask.sum(dim='dim_mask').plot( levels=(1,2,3,4))
+    ----> 2 mask_list.mask.sum(dim="dim_mask").plot(levels=(1, 2, 3, 4))
           4 # Save if required
-          5 #plt.savefig('tmp.png')
+          5 # plt.savefig('tmp.png')
 
 
     NameError: name 'mask_list' is not defined
@@ -733,7 +721,7 @@ Average stratification object over regions using the mask
 
 
 ```python
-mask_means = (strat.dataset*mask_list.mask).mean(dim='x_dim').mean(dim='y_dim')
+mask_means = (strat.dataset * mask_list.mask).mean(dim="x_dim").mean(dim="y_dim")
 ```
 
 
@@ -742,7 +730,7 @@ mask_means = (strat.dataset*mask_list.mask).mean(dim='x_dim').mean(dim='y_dim')
     NameError                                 Traceback (most recent call last)
 
     Cell In[14], line 1
-    ----> 1 mask_means = (strat.dataset*mask_list.mask).mean(dim='x_dim').mean(dim='y_dim')
+    ----> 1 mask_means = (strat.dataset * mask_list.mask).mean(dim="x_dim").mean(dim="y_dim")
 
 
     NameError: name 'mask_list' is not defined
@@ -769,14 +757,17 @@ mask_means
 ```python
 # Plot timeseries per region
 
-for count_region in range(mask_means.dims['dim_mask']):
-    
-    plt.plot( 
+for count_region in range(mask_means.dims["dim_mask"]):
+
+    plt.plot(
         mask_means.PEA.isel(dim_mask=count_region),
         label=mask_means.region_names[count_region].values,
-        marker=".", linestyle='none')
+        marker=".",
+        linestyle="none",
+    )
 
-plt.xlabel('time'); plt.ylabel('PEA')
+plt.xlabel("time")
+plt.ylabel("PEA")
 plt.legend()
 ```
 
@@ -787,12 +778,14 @@ plt.legend()
 
     Cell In[16], line 3
           1 # Plot timeseries per region
-    ----> 3 for count_region in range(mask_means.dims['dim_mask']):
-          5     plt.plot( 
+    ----> 3 for count_region in range(mask_means.dims["dim_mask"]):
+          5     plt.plot(
           6         mask_means.PEA.isel(dim_mask=count_region),
           7         label=mask_means.region_names[count_region].values,
-          8         marker=".", linestyle='none')
-         10 plt.xlabel('time'); plt.ylabel('PEA')
+          8         marker=".",
+          9         linestyle="none",
+         10     )
+         12 plt.xlabel("time")
 
 
     NameError: name 'mask_means' is not defined

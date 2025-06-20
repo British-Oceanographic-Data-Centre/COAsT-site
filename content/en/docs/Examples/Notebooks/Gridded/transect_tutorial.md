@@ -25,25 +25,6 @@ import coast
 import matplotlib.pyplot as plt
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-
-
 ### Define filepaths for data and configuration
 
 
@@ -54,7 +35,7 @@ dn_files = root + "./example_files/"
 fn_nemo_dat_t = dn_files + "nemo_data_T_grid.nc"
 fn_nemo_dat_u = dn_files + "nemo_data_U_grid.nc"
 fn_nemo_dat_v = dn_files + "nemo_data_V_grid.nc"
-fn_nemo_dom =   dn_files + "coast_example_nemo_domain.nc"
+fn_nemo_dom = dn_files + "coast_example_nemo_domain.nc"
 # Configuration files describing the data files
 fn_config_t_grid = root + "./config/example_nemo_grid_t.json"
 fn_config_f_grid = root + "./config/example_nemo_grid_f.json"
@@ -78,7 +59,7 @@ The transect is between the points (54 N 15 W) and (56 N, 12 W). This needs to b
 tran_t = coast.TransectT(nemo_t, (54, -15), (56, -12))
 
 # Inspect the data
-#tran_t.data # uncomment to print data object summary
+# tran_t.data # uncomment to print data object summary
 ```
 
 ### Plot the data
@@ -92,9 +73,14 @@ temp_mean.plot.pcolormesh(y="depth_0", yincrease=False)
 plt.show()
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+
+
 
     
-![png](/COAsT/transect_tutorial_files/transect_tutorial_10_0.png)
+![png](/COAsT/transect_tutorial_files/transect_tutorial_10_1.png)
     
 
 
@@ -113,7 +99,7 @@ nemo_f = coast.Gridded(fn_domain=fn_nemo_dom, config=fn_config_f_grid)
 ```python
 tran_f = coast.TransectF(nemo_f, (54, -15), (56, -12))
 # Inspect the data
-#tran_f.data # uncomment to print data object summary
+# tran_f.data # uncomment to print data object summary
 ```
 
 ### Load model data on the u- and v- grids
@@ -131,7 +117,7 @@ nemo_v = coast.Gridded(fn_data=fn_nemo_dat_v, fn_domain=fn_nemo_dom, config=fn_c
 tran_f.calc_flow_across_transect(nemo_u, nemo_v)
 
 # The flow across the transect is stored in a new dataset where the variables are all defined at the points between f-points.
-#tran_f.data_cross_tran_flow # uncomment to print data object summary
+# tran_f.data_cross_tran_flow # uncomment to print data object summary
 ```
 
 ### Plot the time averaged velocity across the transect

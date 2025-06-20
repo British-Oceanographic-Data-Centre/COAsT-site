@@ -37,40 +37,18 @@ fn_nemo_dom = dn_files + "coast_example_nemo_domain.nc"
 fn_config_t_grid = root + "./config/example_nemo_grid_t.json"
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-
-
 We can create a new Gridded object by simple calling `coast.Gridded()`. By passing this a NEMO data file and a NEMO domain file, COAsT will combine the two into a single xarray dataset within the Gridded object. Each individual Gridded object should be for a specified NEMO grid type, which is specified in a configuration file which is also passed as an argument. The Dask library is switched on by default, chunking can be specified in the configuration file.
 
 
 ```python
-nemo_t = coast.Gridded(fn_data = fn_nemo_dat, fn_domain = fn_nemo_dom, config=fn_config_t_grid)
+nemo_t = coast.Gridded(fn_data=fn_nemo_dat, fn_domain=fn_nemo_dom, config=fn_config_t_grid)
 ```
-
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:282: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
-
 
 Our new Gridded object `nemo_t` contains a variable called dataset, which holds information on the two files we passed. Let’s have a look at this:
 
 
 ```python
-#nemo_t.dataset # uncomment to print data object summary
+# nemo_t.dataset # uncomment to print data object summary
 ```
 
 This is an xarray dataset, which has all the information on netCDF style structures. You can see dimensions, coordinates and data variables. At the moment, none of the actual data is loaded to memory and will remain that way until it needs to be accessed.
@@ -88,7 +66,7 @@ We can interact with this as an xarray Dataset object. So to extract a specific 
 
 ```python
 ssh = nemo_t.dataset.ssh
-#ssh # uncomment to print data object summary
+# ssh # uncomment to print data object summary
 ```
 
 Or as a numpy array:
@@ -96,7 +74,7 @@ Or as a numpy array:
 
 ```python
 ssh_np = ssh.values
-#ssh_np.shape # uncomment to print data object summary
+# ssh_np.shape # uncomment to print data object summary
 ```
 
 Then lets plot up a single time snapshot of ssh using matplotlib:
@@ -106,16 +84,21 @@ Then lets plot up a single time snapshot of ssh using matplotlib:
 plt.pcolormesh(nemo_t.dataset.longitude, nemo_t.dataset.latitude, nemo_t.dataset.ssh[0])
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
 
 
 
-    <matplotlib.collections.QuadMesh at 0x7fb31d487fa0>
+
+
+    <matplotlib.collections.QuadMesh at 0x7f2017bb70d0>
 
 
 
 
     
-![png](/COAsT/introduction_to_gridded_class_files/introduction_to_gridded_class_11_1.png)
+![png](/COAsT/introduction_to_gridded_class_files/introduction_to_gridded_class_11_2.png)
     
 
 
@@ -128,7 +111,7 @@ Lets get the indices of all model points within 111km km of (5W, 55N):
 
 ```python
 ind_y, ind_x = nemo_t.subset_indices_by_distance(centre_lon=-5, centre_lat=55, radius=111)
-#ind_x.shape # uncomment to print data object summary
+# ind_x.shape # uncomment to print data object summary
 ```
 
 Now create a new, smaller subsetted Gridded object by passing those indices to `isel`.
@@ -136,7 +119,7 @@ Now create a new, smaller subsetted Gridded object by passing those indices to `
 
 ```python
 nemo_t_subset = nemo_t.isel(x_dim=ind_x, y_dim=ind_y)
-#nemo_t_subset.dataset # uncomment to print data object summary
+# nemo_t_subset.dataset # uncomment to print data object summary
 ```
 
 Alternatively, xarray.isel can be applied directly to the `xarray.Dataset` object.
@@ -159,8 +142,8 @@ fn_bgc_dat = dn_files + "coast_example_SEAsia_BGC_1990.nc"
 fn_bgc_dom = dn_files + "coast_example_domain_SEAsia.nc"
 fn_config_bgc_grid = root + "./config/example_nemo_bgc.json"
 
-nemo_bgc = coast.Gridded(fn_data = fn_bgc_dat, fn_domain = fn_bgc_dom, config=fn_config_bgc_grid)
-#nemo_bgc.dataset # uncomment to print data object summary
+nemo_bgc = coast.Gridded(fn_data=fn_bgc_dat, fn_domain=fn_bgc_dom, config=fn_config_bgc_grid)
+# nemo_bgc.dataset # uncomment to print data object summary
 ```
 
 As an example plot a snapshot of dissolved inorganic carbon at the sea surface
@@ -183,7 +166,7 @@ plt.ylabel("latitude")
 plt.show()
 ```
 
-    /tmp/ipykernel_2627/2498690501.py:2: UserWarning: The input coordinates to pcolormesh are interpreted as cell centers, but are not monotonically increasing or decreasing. This may lead to incorrectly calculated cell edges, in which case, please supply explicit cell edges to pcolormesh.
+    /tmp/ipykernel_2685/2498690501.py:2: UserWarning: The input coordinates to pcolormesh are interpreted as cell centers, but are not monotonically increasing or decreasing. This may lead to incorrectly calculated cell edges, in which case, please supply explicit cell edges to pcolormesh.
 
 
 
