@@ -27,25 +27,6 @@ path_examples = "./example_files/"
 path_config = "./config/"
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-
-
 ### load and preprocess profile and model data
 
 
@@ -72,20 +53,30 @@ wod_profile = coast.Profile.reshape_2d(wod_profile_1d, var_user_want)
     Depth OK reshape successful
     salinity
     observed variable exist
+
+
     OK reshape successful
     temperature
     observed variable exist
+
+
     OK reshape successful
     nitrate
     variable not in observations
     oxygen
     observed variable exist
+
+
     OK reshape successful
     dic
     observed variable exist
+
+
     OK reshape successful
     phosphate
     observed variable exist
+
+
     OK reshape successful
     alkalinity
     variable not in observations
@@ -96,12 +87,11 @@ Keep subset.
 
 ```python
 wod_profile_sub = wod_profile.subset_indices_lonlat_box(lonbounds=[90, 120], latbounds=[-5, 5])
-
 ```
 
 
 ```python
-#wod_profile_sub.dataset # uncomment to print data object summary
+# wod_profile_sub.dataset # uncomment to print data object summary
 ```
 
 SEAsia read BGC.
@@ -125,13 +115,11 @@ Domain file does not have mask so this is just a trick.
 seasia_bgc.dataset["landmask"] = seasia_bgc.dataset.bottom_level == 0
 seasia_bgc.dataset = seasia_bgc.dataset.rename({"depth_0": "depth"})
 model_profiles = wod_profile_sub.obs_operator(seasia_bgc)
-#model_profiles.dataset # uncomment to print data object summary
+# model_profiles.dataset # uncomment to print data object summary
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:457: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:457: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
 
 
 Remove any points that are far from model.
@@ -146,7 +134,7 @@ wod_profile = wod_profile_sub.isel(id_dim=keep_indices)
 
 
 ```python
-#wod_profile.dataset # uncomment to print data object summary
+# wod_profile.dataset # uncomment to print data object summary
 ```
 
 ### Plot profiles
@@ -169,15 +157,20 @@ plt.title("Oxygen vs depth")
 plt.show()
 ```
 
-
-    
-![png](/COAsT/wod_bgc_ragged_example_files/wod_bgc_ragged_example_17_0.png)
-    
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
 
 
 
     
 ![png](/COAsT/wod_bgc_ragged_example_files/wod_bgc_ragged_example_17_1.png)
+    
+
+
+
+    
+![png](/COAsT/wod_bgc_ragged_example_files/wod_bgc_ragged_example_17_2.png)
     
 
 
@@ -198,7 +191,7 @@ Calculate differences.
 
 ```python
 differences = pa.difference(model_interpolated, wod_profile)
-#differences.dataset.load() # uncomment to print data object summary
+# differences.dataset.load() # uncomment to print data object summary
 ```
 
 

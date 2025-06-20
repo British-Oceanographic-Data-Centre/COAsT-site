@@ -77,25 +77,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pydap/lib.py:5: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.responses')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.handlers')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap.tests')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2350: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydap')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
-    Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
-
-
 We can create a new Profile object easily:
 
 
@@ -111,14 +92,14 @@ files. These can be used to easily read data into your new profile object:
 
 ```python
 # Read WOD data into profile object
-fn_prof = path.join("example_files","WOD_example_ragged_standard_level.nc")
-profile.read_wod( fn_prof )
+fn_prof = path.join("example_files", "WOD_example_ragged_standard_level.nc")
+profile.read_wod(fn_prof)
 
 # Read EN4 data into profile object (OVERWRITES DATASET)
 fn_prof = path.join("example_files", "coast_example_en4_201008.nc")
-fn_cfg_prof = path.join("config","example_en4_profiles.json")
+fn_cfg_prof = path.join("config", "example_en4_profiles.json")
 profile = coast.Profile(config=fn_cfg_prof)
-profile.read_en4( fn_prof )
+profile.read_en4(fn_prof)
 ```
 
     config/example_en4_profiles.json
@@ -138,20 +119,15 @@ processed_profile = profile.process_en4()
 profile = processed_profile
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-
-
 We can do some simple spatial and temporal manipulations of this data:
 
 
 ```python
 # Cut out a geographical box
-profile = profile.subset_indices_lonlat_box(lonbounds = [-15, 15],
-                                            latbounds = [45, 65])
+profile = profile.subset_indices_lonlat_box(lonbounds=[-15, 15], latbounds=[45, 65])
 
 # Cut out a time window
-profile = profile.time_slice( date0 = np.datetime64('2010-01-01'), date1 = np.datetime64("2010-01-20"))
+profile = profile.time_slice(date0=np.datetime64("2010-01-01"), date1=np.datetime64("2010-01-20"))
 ```
 
 ### Inspect profile locations
@@ -162,6 +138,9 @@ Have a look inside the `profile.py` class to see what it can do
 profile.plot_map()
 ```
 
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
     /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/cartopy/io/__init__.py:241: DownloadWarning: Downloading: https://naturalearth.s3.amazonaws.com/50m_physical/ne_50m_coastline.zip
 
 
@@ -201,9 +180,6 @@ fn_nemo_config = path.join(root, "./config/example_nemo_grid_t.json")
 nemo = coast.Gridded(fn_nemo_dat, fn_nemo_dom, multiple=True, config=fn_nemo_config)
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/dataset.py:282: UserWarning: The specified chunks separate the stored chunks along dimension "time_counter" starting at index 2. This could degrade performance. Instead, consider rechunking after loading.
-
-
 #### Create a landmask array in Gridded
 In this example we add a `landmask` variable to the `Gridded` dataset.
 When this is present, the `obs_operator` will use this to interpolation to the
@@ -225,10 +201,8 @@ nemo.dataset = nemo.dataset.rename({"depth_0": "depth"})  # profile methods will
 model_profiles = profile.obs_operator(nemo)
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:456: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:457: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
+    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/coast/data/profile.py:457: UserWarning: Converting non-nanosecond precision timedelta values to nanosecond precision. This behavior can eventually be relaxed in xarray, as it is an artifact from pandas which is now beginning to support non-nanosecond precision values. This warning is caused by passing non-nanosecond np.datetime64 or np.timedelta64 values to the DataArray or Variable constructor; it can be silenced by converting the values to nanosecond precision ahead of time.
 
 
 Now that we have interpolated the model onto Profiles, we have a new Profile
@@ -278,7 +252,6 @@ ref_depth = np.concatenate((np.arange(1, 100, 2), np.arange(100, 300, 5), np.ara
 ```python
 # Interpolate model profiles onto observation depths
 model_profiles_interp = analysis.interpolate_vertical(model_profiles, profile, interp_method="linear")
-
 ```
 
 
@@ -296,9 +269,9 @@ However, there is a problem here as the `interpolate_vertical()` method tries to
 
 ```python
 ## Strip out old QC variables
-profile.dataset = profile.dataset.drop_vars(['qc_potential_temperature','qc_practical_salinity',
-                                 'qc_depth','qc_time',
-                                 'qc_flags_profiles','qc_flags_levels'])
+profile.dataset = profile.dataset.drop_vars(
+    ["qc_potential_temperature", "qc_practical_salinity", "qc_depth", "qc_time", "qc_flags_profiles", "qc_flags_levels"]
+)
 ```
 
 
@@ -336,7 +309,7 @@ differences.dataset.diff_temperature.plot()
 
 
 
-    <matplotlib.collections.QuadMesh at 0x7f50f5e56e00>
+    <matplotlib.collections.QuadMesh at 0x7fe2d817a080>
 
 
 
@@ -349,22 +322,28 @@ differences.dataset.diff_temperature.plot()
 
 ```python
 # or a bit prettier on labelled axes
-cmap=plt.get_cmap('seismic')
+cmap = plt.get_cmap("seismic")
 fig = plt.figure(figsize=(8, 3))
 
-plt.pcolormesh( differences.dataset.time, ref_depth, differences.dataset.diff_temperature.T,
-                    label='abs_diff', cmap=cmap,
-                    vmin=-5, vmax=5)
-plt.ylim([0,200])
+plt.pcolormesh(
+    differences.dataset.time,
+    ref_depth,
+    differences.dataset.diff_temperature.T,
+    label="abs_diff",
+    cmap=cmap,
+    vmin=-5,
+    vmax=5,
+)
+plt.ylim([0, 200])
 plt.gca().invert_yaxis()
-plt.ylabel('depth')
-plt.colorbar( label='temperature diff (obs-model)')
+plt.ylabel("depth")
+plt.colorbar(label="temperature diff (obs-model)")
 ```
 
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f50f4c0c370>
+    <matplotlib.colorbar.Colorbar at 0x7fe2d803f1f0>
 
 
 
@@ -394,7 +373,7 @@ between the interpolated observations and model points
 surface_def = 10  # in metres
 
 model_profiles_surface = analysis.depth_means(model_profiles_interp_ref, [0, surface_def])
-obs_profiles_surface   = analysis.depth_means(profile_interp_ref, [0, surface_def])
+obs_profiles_surface = analysis.depth_means(profile_interp_ref, [0, surface_def])
 surface_errors = analysis.difference(obs_profiles_surface, model_profiles_surface)
 
 # Plot (observation - model) upper 10m averaged temperatures
@@ -441,7 +420,7 @@ Now the difference can be calculated
 
 
 ```python
-bottom_errors = analysis.difference( obs_profiles_bottom, model_profiles_bottom)
+bottom_errors = analysis.difference(obs_profiles_bottom, model_profiles_bottom)
 
 # Plot (observation - model) upper 10m averaged temperatures
 bottom_errors.plot_map(var_str="diff_temperature")
@@ -469,10 +448,10 @@ bottom_errors.plot_map(var_str="diff_temperature")
 # Since they are indexed by 'id_dim' they can be plotted against time
 fig = plt.figure(figsize=(8, 3))
 
-plt.plot( surface_errors.dataset.time, surface_errors.dataset.diff_temperature, '.', label='surf T' )
-plt.plot( bottom_errors.dataset.time, bottom_errors.dataset.diff_temperature, '.', label='bed T' )
-plt.xlabel('time')
-plt.ylabel('temperature errors')
+plt.plot(surface_errors.dataset.time, surface_errors.dataset.diff_temperature, ".", label="surf T")
+plt.plot(bottom_errors.dataset.time, bottom_errors.dataset.diff_temperature, ".", label="bed T")
+plt.xlabel("time")
+plt.ylabel("temperature errors")
 plt.legend()
 plt.title("Temperature diff (obs-model)")
 ```
@@ -513,7 +492,10 @@ regional_masks.append(np.ones(lon.shape))
 
 # Add regional mask for English Channel
 regional_masks.append(mm.region_def_nws_english_channel(lon, lat, bathy))
-region_names = ["whole_domain","english_channel",]
+region_names = [
+    "whole_domain",
+    "english_channel",
+]
 ```
 
 Next, we must make these masks into datasets using `MaskMaker.make_mask_dataset`.
@@ -543,31 +525,31 @@ containing averaged data for each region:
 mask_means = analysis.mask_means(profile, mask_indices)
 ```
 
-    /usr/share/miniconda/envs/coast/lib/python3.10/site-packages/xarray/core/utils.py:494: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-
-
 which can be visualised or further processed
 
 
 ```python
 for count_region in range(len(region_names)):
-    plt.plot( mask_means.profile_mean_temperature.isel(dim_mask=count_region),
-          mask_means.profile_mean_depth.isel(dim_mask=count_region),
-          label=region_names[count_region],
-          marker=".", linestyle='none')
+    plt.plot(
+        mask_means.profile_mean_temperature.isel(dim_mask=count_region),
+        mask_means.profile_mean_depth.isel(dim_mask=count_region),
+        label=region_names[count_region],
+        marker=".",
+        linestyle="none",
+    )
 
-plt.ylim([10,1000])
+plt.ylim([10, 1000])
 plt.yscale("log")
 plt.gca().invert_yaxis()
-plt.xlabel('temperature'); plt.ylabel('depth')
+plt.xlabel("temperature")
+plt.ylabel("depth")
 plt.legend()
-
 ```
 
 
 
 
-    <matplotlib.legend.Legend at 0x7f50f4af8250>
+    <matplotlib.legend.Legend at 0x7fe2d0d118a0>
 
 
 
@@ -599,15 +581,15 @@ lat = prof_gridded.dataset.latitude
 lon = prof_gridded.dataset.longitude
 temperature = prof_gridded.dataset.temperature
 
-plt.pcolormesh( lon, lat, temperature)
-plt.title('gridded mean temperature')
+plt.pcolormesh(lon, lat, temperature)
+plt.title("gridded mean temperature")
 plt.colorbar()
 ```
 
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f50f46e6e30>
+    <matplotlib.colorbar.Colorbar at 0x7fe2d0b218d0>
 
 
 
@@ -640,15 +622,15 @@ You may want to use this when using or extending the analysis. E.g. use it with 
 ```python
 temperature = prof_gridded_DJF.dataset.temperature_DJF
 N = prof_gridded_DJF.dataset.grid_N_DJF
-plt.scatter( lon, lat, c=temperature, s=N)
-plt.title('DJF gridded mean temperature')
+plt.scatter(lon, lat, c=temperature, s=N)
+plt.title("DJF gridded mean temperature")
 plt.colorbar()
 ```
 
 
 
 
-    <matplotlib.colorbar.Colorbar at 0x7f50f45ee170>
+    <matplotlib.colorbar.Colorbar at 0x7fe2d0bf1540>
 
 
 
